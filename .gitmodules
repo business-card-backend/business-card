@@ -1,0 +1,3 @@
+[submodule "business-card-config"]
+	path = business-card-config
+	url = https://github.com/business-card-backend/business-card-config.git

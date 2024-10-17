@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 .DS_Store
+*.yml
 
 ### IntelliJ IDEA ###
 .idea

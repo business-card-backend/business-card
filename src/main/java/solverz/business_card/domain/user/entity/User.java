@@ -10,7 +10,7 @@ import solverz.business_card.domain.common.BaseTimeEntity;
 
 @Entity
 @Getter
-@Table(name = "user")
+@Table(name = "`user`")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

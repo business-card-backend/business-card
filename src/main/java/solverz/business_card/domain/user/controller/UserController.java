@@ -1,4 +1,4 @@
-package solverz.business_card.domain.user;
+package solverz.business_card.domain.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

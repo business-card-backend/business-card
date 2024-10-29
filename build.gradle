@@ -50,7 +50,7 @@ tasks.named('test') {
 task copyPrivate(type: Copy) {
 	copy {
 		from './business-card-config'
-		include "*.yml"
+		include "*"
 		into 'src/main/resources'
 	}
 }

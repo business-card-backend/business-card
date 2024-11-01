@@ -15,12 +15,14 @@ import solverz.business_card.domain.common.BaseTimeEntity;
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     @Column(name = "memberId")
     Long userId;
+
+    @Column(name = "memberToken", nullable = false)
+    String userToken;
 
     @Column(name = "email", nullable = false)
     String email;
@@ -33,8 +35,4 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "nameCardImgUrl")
     String nameCardImgUrl;
-
-    @Column(name = "userToken", nullable = false)
-    String userToken;
-
 }

@@ -1,4 +1,4 @@
-package solverz.business_card.domain.user.controller;
+package solverz.business_card.domain.member.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "User", description = "슈트 유저 관련 API")
 @RestController
 @RequestMapping("/api/v1/user")
-public class UserController {
+public class MemberController {
 
     @Operation(summary = "유저 정보 획득", description = "유저 정보를 획득할 수 있는 API")
     @Parameter(name = "id", description = "유저 id")
     @GetMapping
-    public void getUser(Long id) {
+    public void getMember(Long id) {
     }
 }

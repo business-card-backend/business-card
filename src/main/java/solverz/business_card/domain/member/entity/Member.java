@@ -1,4 +1,4 @@
-package solverz.business_card.domain.user.entity;
+package solverz.business_card.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,16 +10,16 @@ import solverz.business_card.domain.common.BaseTimeEntity;
 
 @Entity
 @Getter
-@Table(name = "`user`")
+@Table(name = "member")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseTimeEntity {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "userId")
+    @Column(name = "memberId")
     Long userId;
 
     @Column(name = "email", nullable = false)

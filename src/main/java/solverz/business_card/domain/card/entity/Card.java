@@ -20,8 +20,11 @@ public class Card extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "cardId")
-    Long cardId;
+    @Column(name = "id")
+    Long id;
+
+    @Column(name = "memberToken", nullable = false)
+    String memberToken;
 
     @Column(name = "name", nullable = false)
     String name;

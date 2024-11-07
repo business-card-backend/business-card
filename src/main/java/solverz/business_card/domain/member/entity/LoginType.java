@@ -11,6 +11,7 @@ public enum LoginType {
     {
         this.loginType = loginType;
     }
+
     public String getLoginType() {
         return loginType;
     }

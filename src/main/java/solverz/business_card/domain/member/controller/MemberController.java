@@ -45,28 +45,13 @@ public class MemberController {
     @Operation(summary = "멤버 정보 수정", description = "멤버 정보를 수정하는 API")
     @PatchMapping
     public ResponseEntity<PatchMemberResponse> patchMember(@RequestParam String token, @RequestBody PatchMemberRequest patchMemberRequest) {
-        Optional<Member> member = memberService.getMember(token);
-        if (member.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
-        }
-
-        Member updatedMember = memberService.updateMember(member.get(), patchMemberRequest); // 고객 정보 업데이트
-        PatchMemberResponse updatedMemberResponse = PatchMemberResponse.memberToResponse(updatedMember);
-        return ResponseEntity.ok(updatedMemberResponse); // update된 고객 정보 반환
+        return memberService.updateMember(token, patchMemberRequest); // 고객 정보 업데이트
     }
 
     @Operation(summary = "멤버 회원탈퇴", description = "멤버 정보를 삭제하는 API")
     @DeleteMapping
     public ResponseEntity<Object> deleteMember(@RequestParam String token) {
-        Optional<Member> member = memberService.getMember(token);
-
-        if (member.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
-        }
-
-        memberService.deleteMember(member.get()); // 멤버 삭제
-
-        return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환
+        return memberService.deleteMember(token); // 멤버 삭제
     }
 
 

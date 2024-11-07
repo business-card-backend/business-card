@@ -1,12 +1,10 @@
 package solverz.business_card.domain.card.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import solverz.business_card.domain.common.BaseTimeEntity;
+import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
 
@@ -49,4 +47,21 @@ public class Card extends BaseTimeEntity {
 
     @Column(name = "memo")
     String memo;
+
+    @Builder
+    public Card(String member, String name, String companyName, String email, String phoneNumber, String cardImgURL, BigDecimal latitude, BigDecimal longitude, String memo) {
+        this.memberToken = member;
+        this.name = name;
+        this.companyName = companyName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.cardImgURL = cardImgURL;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.memo = memo;
+    }
+
+    public void updateMember(String member) {
+        this.memberToken = member;
+    }
 }

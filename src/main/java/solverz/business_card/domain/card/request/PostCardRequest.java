@@ -1,16 +1,15 @@
-package solverz.business_card.domain.card.response;
+package solverz.business_card.domain.card.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
-import solverz.business_card.domain.card.request.GetCardRequest;
+import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
 
 @Builder
-@Schema(description = "명함 세부정보 응답")
-public record GetCardResponse(
+@Schema(description = "명함 등록 요청")
+public record PostCardRequest(
         @Schema(description = "고객 이름")
         String name,
 
@@ -35,16 +34,17 @@ public record GetCardResponse(
         @Schema(description = "명함 메모")
         String memo
 ) {
-        public static GetCardResponse from(Card card) {
-            return GetCardResponse.builder()
-                    .name(card.getName())
-                    .companyName(card.getCompanyName())
-                    .email(card.getEmail())
-                    .phoneNumber(card.getPhoneNumber())
-                    .cardImgURL(card.getCardImgURL())
-                    .latitude(card.getLatitude())
-                    .longitude(card.getLongitude())
-                    .memo(card.getMemo())
-                    .build();
+        public static Card toCard(PostCardRequest request) {
+                return Card.builder()
+                        .name(request.name())
+                        .companyName(request.companyName())
+                        .email(request.email())
+                        .phoneNumber(request.phoneNumber())
+                        .cardImgURL(request.cardImgURL())
+                        .latitude(request.latitude())
+                        .longitude(request.longitude())
+                        .memo(request.memo())
+                        .build();
         }
+
 }

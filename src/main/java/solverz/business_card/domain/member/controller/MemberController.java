@@ -26,32 +26,36 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<GetMemberResponse> getMember(@RequestParam String token) {
         Optional<Member> member = memberService.getMember(token);
-        GetMemberResponse response;
+        GetMemberResponse responseBody;
 
         if (member.isEmpty()) {
             return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
         }
-        response = GetMemberResponse.memberToResponse(member.get());
-        return ResponseEntity.ok(response); // 200 ok + response 반환
+        responseBody = GetMemberResponse.memberToResponse(member.get());
+        ResponseEntity<GetMemberResponse> response = ResponseEntity.ok(responseBody); // 200 ok + response 반환
+        return response;
     }
 
     @Operation(summary = "멤버 회원가입", description = "새 멤버를 등록하는 API")
     @PostMapping
     public ResponseEntity<Object> postMember(@RequestBody PostMemberRequest postMemberRequest) {
         memberService.registerMember(postMemberRequest); // 서비스에서 회원가입 처리
-        return ResponseEntity.status(HttpStatus.CREATED).build(); // 201 Created 응답 반환
+        ResponseEntity<Object> response = ResponseEntity.status(HttpStatus.CREATED).build(); // 201 Created 응답 반환
+        return response;
     }
 
     @Operation(summary = "멤버 정보 수정", description = "멤버 정보를 수정하는 API")
     @PatchMapping
     public ResponseEntity<PatchMemberResponse> patchMember(@RequestParam String token, @RequestBody PatchMemberRequest patchMemberRequest) {
-        return memberService.updateMember(token, patchMemberRequest); // 고객 정보 업데이트
+        ResponseEntity<PatchMemberResponse> response = memberService.updateMember(token, patchMemberRequest); // 고객 정보 업데이트
+        return response;
     }
 
     @Operation(summary = "멤버 회원탈퇴", description = "멤버 정보를 삭제하는 API")
     @DeleteMapping
     public ResponseEntity<Object> deleteMember(@RequestParam String token) {
-        return memberService.deleteMember(token); // 멤버 삭제
+        ResponseEntity<Object> response = memberService.deleteMember(token); // 멤버 삭제
+        return response;
     }
 
 

@@ -21,7 +21,7 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions.sameOrigin()) // H2 콘솔 사용을 위한 설정
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin()) // H2 콘솔 접속 CSRF 문제 해결
                 );
 
         return http.build();

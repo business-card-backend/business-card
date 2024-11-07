@@ -3,32 +3,36 @@ package solverz.business_card.domain.member.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.common.BaseTimeEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter
 @Setter
-@Builder
 @Table(name = "member")
-@IdClass(MemberKey.class)
+//@IdClass(MemberKey.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본생성자
 public class Member extends BaseTimeEntity {
-    @SequenceGenerator(
-            name = "member_seq_gen1",
-            sequenceName = "member_seq_gen1",
-            allocationSize = 1
-    )
+//    @SequenceGenerator(
+//            name = "member_seq_gen1",
+//            sequenceName = "member_seq_gen1",
+//            allocationSize = 1
+//    )
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="member_seq_gen1")
+//    @EqualsAndHashCode.Include
+//    @Column(name = "memberId", nullable = false)
+//    Long memberId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="member_seq_gen1")
     @EqualsAndHashCode.Include
-    @Column(name = "memberId", nullable = false)
-    Long memberId;
-
-    @Id
     @Column(name = "memberToken", nullable = false)
     String memberToken;
 
@@ -47,8 +51,12 @@ public class Member extends BaseTimeEntity {
     @Column(name = "loginType", nullable = false)
     LoginType loginType;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
+    private List<Card> cards = new ArrayList<>();
+
+    @Builder
     public Member(Long memberId, String memberToken, String email, String password, String name, String nameCardImgUrl, LoginType loginType) {
-        this.memberId = memberId;
+//        this.memberId = memberId;
         this.memberToken = memberToken;
         this.email = email;
         this.password = password;

@@ -6,5 +6,4 @@ import solverz.business_card.domain.card.entity.Card;
 import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
-    Optional<Card> findByIdAndMemberToken(Long id, String memberToken);
 }

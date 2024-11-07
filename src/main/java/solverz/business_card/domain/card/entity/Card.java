@@ -21,9 +21,6 @@ public class Card extends BaseTimeEntity {
     @Column(name = "id")
     Long id;
 
-    @Column(name = "memberToken", nullable = false)
-    String memberToken;
-
     @Column(name = "name", nullable = false)
     String name;
 
@@ -48,9 +45,12 @@ public class Card extends BaseTimeEntity {
     @Column(name = "memo")
     String memo;
 
+    @ManyToOne
+    @JoinColumn(name = "memberToken", nullable = false)
+    private Member member;
+
     @Builder
-    public Card(String member, String name, String companyName, String email, String phoneNumber, String cardImgURL, BigDecimal latitude, BigDecimal longitude, String memo) {
-        this.memberToken = member;
+    public Card(String name, String companyName, String email, String phoneNumber, String cardImgURL, BigDecimal latitude, BigDecimal longitude, String memo) {
         this.name = name;
         this.companyName = companyName;
         this.email = email;
@@ -61,7 +61,7 @@ public class Card extends BaseTimeEntity {
         this.memo = memo;
     }
 
-    public void updateMember(String member) {
-        this.memberToken = member;
+    public void updateMember(Member member) {
+        this.member = member;
     }
 }

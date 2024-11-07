@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 @Builder
 @Schema(description = "명함 등록 요청")
 public record PostCardRequest(
+        @Schema(description = "멤버 토큰")
+        String memberToken,
+
         @Schema(description = "고객 이름")
         String name,
 

@@ -61,8 +61,8 @@ public class MemberService {
 
         // 변경된 멤버 정보 저장
         memberRepository.save(member.get());
-        PatchMemberResponse updatedMemberResponse = PatchMemberResponse.memberToResponse(member.get());
-        return ResponseEntity.ok(updatedMemberResponse); // update된 고객 정보 반환
+        PatchMemberResponse response = PatchMemberResponse.memberToResponse(member.get());
+        return ResponseEntity.ok(response); // update된 고객 정보 반환
     }
 
     // 회원 삭제 요청

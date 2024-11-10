@@ -3,7 +3,6 @@ package solverz.business_card.domain.card.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
-import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
 
@@ -28,6 +27,9 @@ public record PostCardRequest(
         @Schema(description = "명함 이미지 URL")
         String cardImgURL,
 
+        @Schema(description = "고객 회사 주소")
+        String companyAddress,
+
         @Schema(description = "고객 회사 위도")
         BigDecimal latitude,
 
@@ -44,6 +46,7 @@ public record PostCardRequest(
                         .email(request.email())
                         .phoneNumber(request.phoneNumber())
                         .cardImgURL(request.cardImgURL())
+                        .companyAddress(request.companyAddress())
                         .latitude(request.latitude())
                         .longitude(request.longitude())
                         .memo(request.memo())

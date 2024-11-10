@@ -26,6 +26,9 @@ public record GetCardResponse(
         @Schema(description = "명함 이미지 URL")
         String cardImgURL,
 
+        @Schema(description = "고객 회사 주소")
+        String companyAddress,
+
         @Schema(description = "고객 회사 위도")
         BigDecimal latitude,
 
@@ -42,6 +45,7 @@ public record GetCardResponse(
                     .email(card.getEmail())
                     .phoneNumber(card.getPhoneNumber())
                     .cardImgURL(card.getCardImgURL())
+                    .companyName(card.getCompanyName())
                     .latitude(card.getLatitude())
                     .longitude(card.getLongitude())
                     .memo(card.getMemo())

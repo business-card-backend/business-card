@@ -36,6 +36,9 @@ public class Card extends BaseTimeEntity {
     @Column(name = "cardImgURL")
     String cardImgURL;
 
+    @Column(name = "companyAddress")
+    String companyAddress;
+
     @Column(name = "latitude")
     BigDecimal latitude;
 
@@ -50,12 +53,13 @@ public class Card extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Card(String name, String companyName, String email, String phoneNumber, String cardImgURL, BigDecimal latitude, BigDecimal longitude, String memo) {
+    public Card(String name, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo) {
         this.name = name;
         this.companyName = companyName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.cardImgURL = cardImgURL;
+        this.companyAddress = companyAddress;
         this.latitude = latitude;
         this.longitude = longitude;
         this.memo = memo;

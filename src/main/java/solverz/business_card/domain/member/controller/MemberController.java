@@ -53,7 +53,4 @@ public class MemberController {
     public ResponseEntity<Object> deleteMember(@RequestParam String token) {
         return memberService.deleteMember(token); // 멤버 삭제
     }
-
-
-
 }

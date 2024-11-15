@@ -7,6 +7,7 @@ import solverz.business_card.domain.common.BaseTimeEntity;
 import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -23,6 +24,9 @@ public class Card extends BaseTimeEntity {
 
     @Column(name = "name", nullable = false)
     String name;
+
+    @Column(name = "birth")
+    LocalDate birth;
 
     @Column(name = "companyName", nullable = false)
     String companyName;
@@ -53,8 +57,9 @@ public class Card extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Card(String name, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo) {
+    public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo) {
         this.name = name;
+        this.birth = LocalDate.parse(birth);
         this.companyName = companyName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -67,5 +72,58 @@ public class Card extends BaseTimeEntity {
 
     public void updateMember(Member member) {
         this.member = member;
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateBirth(LocalDate birth) {
+        this.birth = birth;
+    }
+
+    public void updateCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void updateCardImgURL(String cardImgURL) {
+        this.cardImgURL = cardImgURL;
+    }
+
+    public void updateCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
+    public void updateLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public void updateLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public void updateMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void updateCard(Card card) {
+        this.updateName(card.getName());
+        this.updateBirth(card.getBirth());
+        this.updateCompanyName(card.getCompanyName());
+        this.updateEmail(card.getEmail());
+        this.updatePhoneNumber(card.getPhoneNumber());
+        this.updateCardImgURL(card.getCardImgURL());
+        this.updateCompanyAddress(card.getCompanyAddress());
+        this.updateLatitude(card.getLatitude());
+        this.updateLongitude(card.getLongitude());
+        this.updateMemo(card.getMemo());
     }
 }

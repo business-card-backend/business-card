@@ -10,9 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import solverz.business_card.domain.card.request.GetCardRequest;
 import solverz.business_card.domain.card.request.PostCardRequest;
+import solverz.business_card.domain.card.request.PutCardRequest;
 import solverz.business_card.domain.card.response.GetCardResponse;
 import solverz.business_card.domain.card.response.GetCardSummaryResponse;
 import solverz.business_card.domain.card.response.PostCardResponse;
+import solverz.business_card.domain.card.response.PutCardResponse;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.common.response.PageResponse;
 
@@ -48,6 +50,13 @@ public class CardController {
     @PostMapping
     public ResponseEntity<PostCardResponse> enrollCard(PostCardRequest request) {
         PostCardResponse response = cardService.enrollCard(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "명함 수정 API", description = "명함 수정을 요청하는 API")
+    @PutMapping
+    public ResponseEntity<PutCardResponse> modifyCard(PutCardRequest request) {
+        PutCardResponse response = cardService.modifyCard(request);
         return ResponseEntity.ok(response);
     }
 }

@@ -7,15 +7,18 @@ import solverz.business_card.domain.card.entity.Card;
 import java.math.BigDecimal;
 
 @Builder
-@Schema(description = "명함 등록 요청")
-public record PostCardRequest(
+@Schema(description = "명함 수정 요청")
+public record PutCardRequest(
+        @Schema(description = "명함 id", defaultValue = "1")
+        Long cardId,
+
         @Schema(description = "멤버 토큰", defaultValue = "1234")
         String memberToken,
 
         @Schema(description = "고객 이름", defaultValue = "customer")
         String name,
 
-        @Schema(description = "고객 생일", defaultValue = "2000-07-10(생년-월-일 형식 필수)")
+        @Schema(description = "고객 생일", defaultValue = "20000710")
         String birth,
 
         @Schema(description = "고객 회사명", defaultValue = "company1")
@@ -42,19 +45,18 @@ public record PostCardRequest(
         @Schema(description = "명함 메모", defaultValue = "good")
         String memo
 ) {
-        public static Card toCard(PostCardRequest request) {
-                return Card.builder()
-                        .name(request.name())
-                        .birth(request.birth())
-                        .companyName(request.companyName())
-                        .email(request.email())
-                        .phoneNumber(request.phoneNumber())
-                        .cardImgURL(request.cardImgURL())
-                        .companyAddress(request.companyAddress())
-                        .latitude(request.latitude())
-                        .longitude(request.longitude())
-                        .memo(request.memo())
-                        .build();
+        public static Card toCard(PutCardRequest request) {
+            return Card.builder()
+                    .name(request.name())
+                    .birth(request.birth())
+                    .companyName(request.companyName())
+                    .email(request.email())
+                    .phoneNumber(request.phoneNumber())
+                    .cardImgURL(request.cardImgURL())
+                    .companyAddress(request.companyAddress())
+                    .latitude(request.latitude())
+                    .longitude(request.longitude())
+                    .memo(request.memo())
+                    .build();
         }
-
 }

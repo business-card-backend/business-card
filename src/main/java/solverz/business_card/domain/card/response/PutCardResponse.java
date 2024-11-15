@@ -5,8 +5,8 @@ import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
 
 @Builder
-@Schema(description = "명함 등록 응답")
-public record PostCardResponse(
+@Schema(description = "명함 수정 응답")
+public record PutCardResponse(
         @Schema(description = "등록된 명함 id")
         Long id,
 
@@ -19,8 +19,8 @@ public record PostCardResponse(
         @Schema(description = "등록된 고객 이메일")
         String email
 ) {
-        public static PostCardResponse from(Card card) {
-            return PostCardResponse.builder()
+        public static PutCardResponse from(Card card) {
+            return PutCardResponse.builder()
                     .id(card.getId())
                     .name(card.getName())
                     .companyName(card.getCompanyName())

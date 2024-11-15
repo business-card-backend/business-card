@@ -9,9 +9,11 @@ import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.card.repository.CardRepository;
 import solverz.business_card.domain.card.request.GetCardRequest;
 import solverz.business_card.domain.card.request.PostCardRequest;
+import solverz.business_card.domain.card.request.PutCardRequest;
 import solverz.business_card.domain.card.response.GetCardResponse;
 import solverz.business_card.domain.card.response.GetCardSummaryResponse;
 import solverz.business_card.domain.card.response.PostCardResponse;
+import solverz.business_card.domain.card.response.PutCardResponse;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
@@ -44,5 +46,13 @@ public class CardService {
         card.updateMember(member);
         cardRepository.save(card);
         return PostCardResponse.from(card);
+    }
+
+    public PutCardResponse modifyCard(PutCardRequest request) {
+        Card card = cardRepository.findById(request.cardId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+        Card modifyCard = PutCardRequest.toCard(request);
+        card.updateCard(modifyCard);
+        return PutCardResponse.from(card);
     }
 }

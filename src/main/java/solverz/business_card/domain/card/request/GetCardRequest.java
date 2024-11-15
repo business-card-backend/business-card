@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 @Schema(description = "명함 세부정보 요청")
 public record GetCardRequest(
-        @Schema(description = "Member Token")
+        @Schema(description = "Member Token", defaultValue = "1234")
         String memberToken,
 
         @Schema(description = "Card ID", example = "1")

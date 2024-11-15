@@ -32,7 +32,7 @@ public class MemberService {
                 .memberToken(postMemberRequest.getMemberToken())
                 .email(postMemberRequest.getEmail())
                 .password(postMemberRequest.getPassword())
-                .name(postMemberRequest.getName())
+                .nickname(postMemberRequest.getNickname())
                 .nameCardImgUrl(postMemberRequest.getNameCardImgUrl())
                 .memberToken(postMemberRequest.getMemberToken())
                 .loginType(postMemberRequest.getLoginType())
@@ -52,8 +52,8 @@ public class MemberService {
         if (patchMemberRequest.getPassword() != null) {
             member.get().setPassword(patchMemberRequest.getPassword());
         }
-        if (patchMemberRequest.getName() != null) {
-            member.get().setName(patchMemberRequest.getName());
+        if (patchMemberRequest.getNickname() != null) {
+            member.get().setNickname(patchMemberRequest.getNickname());
         }
         if (patchMemberRequest.getNameCardImgUrl() != null) {
             member.get().setNameCardImgUrl(patchMemberRequest.getNameCardImgUrl());

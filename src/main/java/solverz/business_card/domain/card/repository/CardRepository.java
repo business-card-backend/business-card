@@ -10,4 +10,6 @@ import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
         Page<Card> findByMemberMemberToken(String memberToken, Pageable pageable);
+
+        Optional<Card> findByIdAndMemberMemberToken(Long cardId, String memberToken);
 }

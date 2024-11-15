@@ -3,10 +3,13 @@ package solverz.business_card.domain.member.service;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import solverz.business_card.domain.common.execption.BusinessException;
+import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.member.request.PatchMemberRequest;
 import solverz.business_card.domain.member.request.PostMemberRequest;
 import solverz.business_card.domain.member.entity.Member;
 import solverz.business_card.domain.member.repository.MemberRepository;
+import solverz.business_card.domain.member.response.GetMemberResponse;
 import solverz.business_card.domain.member.response.PatchMemberResponse;
 
 import java.util.Optional;
@@ -19,10 +22,18 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    @Transactional
+    public Member getOnlyMember(String token){
+        Member member = memberRepository.findByMemberToken(token)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
+        return member;
+    }
+
     // member 데이터 조회 (token 이용)
     @Transactional
-    public Optional<Member> getMember(String memberToken){
-        return memberRepository.findByMemberToken(memberToken);
+    public GetMemberResponse getMember(String token){
+        Member member = getOnlyMember(token);
+        return GetMemberResponse.memberToResponse(member);
     }
 
     // 회원가입
@@ -43,39 +54,26 @@ public class MemberService {
     // 회원 정보 수정
     @Transactional
     public ResponseEntity<PatchMemberResponse> updateMember(String token, PatchMemberRequest patchMemberRequest) {
-        Optional<Member> member = getMember(token);
+        Member member = getOnlyMember(token);
 
-        if (member.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
-        }
-
-        if (patchMemberRequest.getPassword() != null) {
-            member.get().setPassword(patchMemberRequest.getPassword());
-        }
-        if (patchMemberRequest.getNickname() != null) {
-            member.get().setNickname(patchMemberRequest.getNickname());
-        }
-        if (patchMemberRequest.getNameCardImgUrl() != null) {
-            member.get().setNameCardImgUrl(patchMemberRequest.getNameCardImgUrl());
-        }
+        // 회원 정보 update
+        member.updatePassword(patchMemberRequest.getPassword());
+        member.updateNickname(patchMemberRequest.getNickname());
+        member.updateNameCardImgUrl(patchMemberRequest.getNameCardImgUrl());
 
         // 변경된 멤버 정보 저장
-        memberRepository.save(member.get());
-        PatchMemberResponse response = PatchMemberResponse.memberToResponse(member.get());
+        memberRepository.save(member);
+        PatchMemberResponse response = PatchMemberResponse.memberToResponse(member);
         return ResponseEntity.ok(response); // update된 고객 정보 반환
     }
 
     // 회원 삭제 요청
     @Transactional
     public ResponseEntity<Object> deleteMember(String token) {
-        Optional<Member> member = getMember(token);
-
-        if (member.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
-        }
+        Member member = getOnlyMember(token);
 
         // member 삭제
-        memberRepository.delete(member.get());
+        memberRepository.delete(member);
 
         return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환
     }

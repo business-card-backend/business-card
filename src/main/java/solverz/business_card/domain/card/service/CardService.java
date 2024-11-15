@@ -39,7 +39,7 @@ public class CardService {
     }
 
     public PostCardResponse enrollCard(PostCardRequest request) {
-        Member member = memberService.getMember(request.memberToken()).get();
+        Member member = memberService.getOnlyMember(request.memberToken());
         Card card = PostCardRequest.toCard(request);
         card.updateMember(member);
         cardRepository.save(card);

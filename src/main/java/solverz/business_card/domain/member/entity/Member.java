@@ -54,6 +54,23 @@ public class Member extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();
 
+    public void updatePassword(String password) {
+        if (password != null) {
+            this.password = password;
+        }
+    }
+
+    public void updateNickname(String nickname) {
+        if (nickname != null) {
+            this.nickname = nickname;
+        }
+    }
+    public void updateNameCardImgUrl(String nameCardImgUrl) {
+        if (nameCardImgUrl != null) {
+            this.nameCardImgUrl = nameCardImgUrl;
+        }
+    }
+
     @Builder
     public Member(Long memberId, String memberToken, String email, String password, String nickname, String nameCardImgUrl, LoginType loginType) {
 //        this.memberId = memberId;

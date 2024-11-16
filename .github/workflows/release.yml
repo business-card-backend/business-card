@@ -1,0 +1,58 @@
+name: RELEASE_TO_SERVER
+
+env:
+  DOCKER_IMAGE: 1006lem/business-card
+  DOCKER_CONTAINER: business-card
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  # Docker image build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: |
+            image=moby/buildkit:v0.10.6
+      - name: login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}:latest
+
+  deploy:
+    needs: build
+    # ec2에 설치한 Runner로 job 실행
+    runs-on: [self-hosted, label-vog]
+    # Github container registry 로그인
+    steps:
+      - name: login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Pull latest Docker image
+        run: |
+          docker pull ${{ env.DOCKER_IMAGE }}:latest
+      - name: Run docker
+        run: |
+          docker rm -f ${{ env.DOCKER_CONTAINER }} || true
+          docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --restart always ${{ env.DOCKER_IMAGE }}:latest

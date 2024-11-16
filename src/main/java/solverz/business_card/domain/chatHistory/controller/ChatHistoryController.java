@@ -9,8 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
+import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.response.GetChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.PostChatHistoryResponse;
+import solverz.business_card.domain.chatHistory.response.PutChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.service.ChatHistoryService;
 import solverz.business_card.domain.common.response.PageResponse;
 
@@ -39,6 +41,13 @@ public class ChatHistoryController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageResponse<GetChatHistoryResponse> response = chatHistoryService.getChatHistoryList(cardId, pageable);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "상담기록 수정 API", description = "상담기록 수정을 요청하는 API")
+    @PutMapping
+    public ResponseEntity<PutChatHistoryResponse> modifyChatHistory(PutChatHistoryRequest request) {
+        PutChatHistoryResponse response = chatHistoryService.modifyChatHistory(request);
         return ResponseEntity.ok(response);
     }
 }

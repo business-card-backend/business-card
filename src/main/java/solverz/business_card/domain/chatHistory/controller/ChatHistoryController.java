@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
+import solverz.business_card.domain.chatHistory.response.DeleteChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.GetChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.PostChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.PutChatHistoryResponse;
@@ -57,6 +59,13 @@ public class ChatHistoryController {
     @PutMapping
     public ResponseEntity<PutChatHistoryResponse> modifyChatHistory(PutChatHistoryRequest request) {
         PutChatHistoryResponse response = chatHistoryService.modifyChatHistory(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "상담기록 삭제 API", description = "상담기록 삭제를 요청하는 API")
+    @DeleteMapping
+    public ResponseEntity<DeleteChatHistoryResponse> deleteChatHistory(DeleteChatHistoryRequest request) {
+        DeleteChatHistoryResponse response = chatHistoryService.deleteChatHistory(request);
         return ResponseEntity.ok(response);
     }
 }

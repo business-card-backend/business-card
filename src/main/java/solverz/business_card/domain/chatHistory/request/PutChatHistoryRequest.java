@@ -6,6 +6,7 @@ import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 
 import java.time.LocalDateTime;
 
+@Schema(description = "상담기록 수정 요청")
 public record PutChatHistoryRequest(
         @Schema(description = "명함 아이디", defaultValue = "1")
         Long cardId,

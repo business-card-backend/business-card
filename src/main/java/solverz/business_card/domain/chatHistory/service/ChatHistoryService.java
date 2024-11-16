@@ -9,8 +9,10 @@ import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.chatHistory.repository.ChatHistoryRepository;
+import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
+import solverz.business_card.domain.chatHistory.response.DeleteChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.GetChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.PostChatHistoryResponse;
 import solverz.business_card.domain.chatHistory.response.PutChatHistoryResponse;
@@ -53,5 +55,13 @@ public class ChatHistoryService {
         ChatHistory modifyChatHistory = PutChatHistoryRequest.toChatHistory(request);
         chatHistory.updateChatHistory(modifyChatHistory);
         return PutChatHistoryResponse.from(chatHistory);
+    }
+
+    public DeleteChatHistoryResponse deleteChatHistory(DeleteChatHistoryRequest request) {
+        Card card = cardService.getOnlyCard(request.cardId());
+        ChatHistory chatHistory = chatHistoryRepository.findByIdAndCard(request.chatHistoryId(), card)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+        chatHistoryRepository.deleteById(request.chatHistoryId());
+        return DeleteChatHistoryResponse.from(chatHistory);
     }
 }

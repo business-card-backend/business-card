@@ -15,7 +15,7 @@ public record PostCardRequest(
         @Schema(description = "고객 이름", defaultValue = "customer")
         String name,
 
-        @Schema(description = "고객 생일", defaultValue = "2000-07-10(생년-월-일 형식 필수)")
+        @Schema(description = "고객 생일", defaultValue = "2000-07-10")
         String birth,
 
         @Schema(description = "고객 회사명", defaultValue = "company1")

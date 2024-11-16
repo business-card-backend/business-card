@@ -1,11 +1,9 @@
 package solverz.business_card.domain.chatHistory.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.common.BaseTimeEntity;
 
 import java.time.LocalDateTime;
@@ -31,4 +29,19 @@ public class ChatHistory extends BaseTimeEntity {
 
     @Column(name = "chatAt", nullable = false)
     LocalDateTime chatAt;
+
+    @ManyToOne
+    @JoinColumn(name = "cardId", nullable = false)
+    private Card card;
+
+    @Builder
+    public ChatHistory(String title, String content, LocalDateTime chatAt) {
+        this.title = title;
+        this.content = content;
+        this.chatAt = chatAt;
+    }
+
+    public void updateCard(Card card) {
+        this.card = card;
+    }
 }

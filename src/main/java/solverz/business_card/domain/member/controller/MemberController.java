@@ -25,13 +25,7 @@ public class MemberController {
     @Operation(summary = "멤버 정보 획득", description = "멤버 정보를 획득할 수 있는 API")
     @GetMapping
     public ResponseEntity<GetMemberResponse> getMember(@RequestParam String token) {
-        Optional<Member> member = memberService.getMember(token);
-        GetMemberResponse response;
-
-        if (member.isEmpty()) {
-            return ResponseEntity.notFound().build(); // 404 Not Found 응답 반환
-        }
-        response = GetMemberResponse.memberToResponse(member.get());
+        GetMemberResponse response = memberService.getMember(token);
         return ResponseEntity.ok(response); // 200 ok + response 반환
     }
 
@@ -53,7 +47,4 @@ public class MemberController {
     public ResponseEntity<Object> deleteMember(@RequestParam String token) {
         return memberService.deleteMember(token); // 멤버 삭제
     }
-
-
-
 }

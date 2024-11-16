@@ -12,8 +12,8 @@ public class PatchMemberResponse {
     @Schema(description = "사용자 계정 패스워드")
     private String password;
 
-    @Schema(description = "사용자 본명")
-    private String name;
+    @Schema(description = "사용자 닉네임")
+    private String nickname;
 
     @Schema(description = "사용자 명함 이미지 URL")
     private String nameCardImgUrl;
@@ -21,7 +21,7 @@ public class PatchMemberResponse {
     public static PatchMemberResponse memberToResponse(Member member) {
         return PatchMemberResponse.builder()
                 .password(member.getPassword())
-                .name(member.getName())
+                .nickname(member.getNickname())
                 .nameCardImgUrl(member.getNameCardImgUrl())
                 .build();
     }

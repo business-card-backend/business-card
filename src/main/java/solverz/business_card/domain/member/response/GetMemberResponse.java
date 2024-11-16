@@ -17,8 +17,8 @@ public class GetMemberResponse {
     @Schema(description = "사용자 계정 패스워드")
     String password;
 
-    @Schema(description = "사용자 본명")
-    String name;
+    @Schema(description = "사용자 닉네임")
+    String nickname;
 
     @Schema(description = "사용자 명함 이미지 URL")
     String nameCardImgUrl;
@@ -33,7 +33,7 @@ public class GetMemberResponse {
         return GetMemberResponse.builder()
                 .email(member.getEmail())
                 .password(member.getPassword())
-                .name(member.getName())
+                .nickname(member.getNickname())
                 .nameCardImgUrl(member.getNameCardImgUrl())
                 .loginType(member.getLoginType())
                 .createdAt(member.getCreatedAt())

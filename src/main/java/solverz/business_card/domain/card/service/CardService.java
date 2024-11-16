@@ -27,14 +27,16 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public GetCardResponse getCard(GetCardRequest request) {
-        Card card = cardRepository.findByIdAndMemberMemberToken(request.cardId(), request.memberToken())
+        Member member = memberService.getOnlyMember(request.memberToken());
+        Card card = cardRepository.findByIdAndMember(request.cardId(), member)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
         return GetCardResponse.from(card);
     }
 
     @Transactional(readOnly = true)
     public PageResponse<GetCardSummaryResponse> getCardList(String memberToken, Pageable pageable) {
-        Page<Card> pages = cardRepository.findByMemberMemberToken(memberToken, pageable);
+        Member member = memberService.getOnlyMember(memberToken);
+        Page<Card> pages = cardRepository.findByMember(member, pageable);
         return PageResponse.of(pages.getContent().stream().map(GetCardSummaryResponse::from).toList());
     }
 
@@ -55,7 +57,8 @@ public class CardService {
     }
 
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {
-        Card card = cardRepository.findByIdAndMemberMemberToken(request.cardId(), request.memberToken())
+        Member member = memberService.getOnlyMember(request.memberToken());
+        Card card = cardRepository.findByIdAndMember(request.cardId(), member)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));;
         cardRepository.deleteById(request.cardId());
         return DeleteCardResponse.from(card);

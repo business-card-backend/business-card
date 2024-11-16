@@ -44,6 +44,15 @@ public class ChatHistoryController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "상담기록 상세정보 API", description = "상담기록의 상세정보를 요청하는 API")
+    @Parameter(name = "cardId", description = "명함 id")
+    @Parameter(name = "chatHistoryId", description = "상담기록 id")
+    @GetMapping("/detail")
+    public ResponseEntity<GetChatHistoryResponse> getChatHistory(@RequestParam Long cardId, @RequestParam Long chatHistoryId) {
+        GetChatHistoryResponse response = chatHistoryService.getChatHistory(cardId, chatHistoryId);
+        return ResponseEntity.ok(response);
+    }
+
     @Operation(summary = "상담기록 수정 API", description = "상담기록 수정을 요청하는 API")
     @PutMapping
     public ResponseEntity<PutChatHistoryResponse> modifyChatHistory(PutChatHistoryRequest request) {

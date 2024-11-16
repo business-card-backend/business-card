@@ -39,6 +39,13 @@ public class ChatHistoryService {
         return PageResponse.of(chatHistories.stream().map(GetChatHistoryResponse::from).toList());
     }
 
+    public GetChatHistoryResponse getChatHistory(Long cardId, Long chatHistoryId) {
+        Card card = cardService.getOnlyCard(cardId);
+        ChatHistory chatHistories = chatHistoryRepository.findByIdAndCard(chatHistoryId, card)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));;
+        return GetChatHistoryResponse.from(chatHistories);
+    }
+
     public PutChatHistoryResponse modifyChatHistory(PutChatHistoryRequest request) {
         Card card = cardService.getOnlyCard(request.cardId());
         ChatHistory chatHistory = chatHistoryRepository.findByIdAndCard(request.chatHistoryId(), card)
@@ -47,6 +54,4 @@ public class ChatHistoryService {
         chatHistory.updateChatHistory(modifyChatHistory);
         return PutChatHistoryResponse.from(chatHistory);
     }
-
-
 }

@@ -25,6 +25,12 @@ public class CardService {
     private final CardRepository cardRepository;
     private final MemberService memberService;
 
+    public Card getOnlyCard(Long id) {
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+        return card;
+    }
+
     @Transactional(readOnly = true)
     public GetCardResponse getCard(GetCardRequest request) {
         Member member = memberService.getOnlyMember(request.memberToken());

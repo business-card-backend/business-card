@@ -3,11 +3,14 @@ package solverz.business_card.domain.card.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.common.BaseTimeEntity;
 import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -55,6 +58,9 @@ public class Card extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "memberToken", nullable = false)
     private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "card", orphanRemoval = true)
+    private List<ChatHistory> chatHistories = new ArrayList<>();
 
     @Builder
     public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo) {

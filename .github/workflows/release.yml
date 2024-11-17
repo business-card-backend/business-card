@@ -18,9 +18,14 @@ jobs:
       - name: Checkout Source Code with Submodules
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN }}
           submodules: recursive
           fetch-depth: 0
+          
+      - name: Move Submodule to src/main/resources
+        run: |
+          mkdir -p src/main/resources
+          cp -r business-card-config/* src/main/resources/
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1

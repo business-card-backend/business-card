@@ -24,7 +24,6 @@ jobs:
           
       - name: Move Submodule to src/main/resources
         run: |
-          mkdir -p src/main/resources
           cp -r business-card-config/* src/main/resources/
         
       - name: Set up Docker Buildx

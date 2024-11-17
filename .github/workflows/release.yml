@@ -1,0 +1,69 @@
+name: RELEASE_TO_SERVER
+
+env:
+  DOCKER_IMAGE: 1006lem/business-card
+  DOCKER_CONTAINER: business-card
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  # Docker image build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code with Submodules
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          submodules: recursive
+          fetch-depth: 0
+          
+      - name: Move Submodule to src/main/resources
+        run: |
+          cp -r business-card-config/* src/main/resources/
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Docker Build and push
+        id: docker_build
+        run: |
+          docker build -t ${{ env.DOCKER_IMAGE }}:latest .
+          
+      - name: Docker push
+        id: docker_push
+        run: |
+          docker push ${{ env.DOCKER_IMAGE }}:latest
+
+  deploy:
+    needs: build
+    # ec2에 설치한 Runner로 job 실행
+    runs-on: [self-hosted, label-vog]
+    # Github container registry 로그인
+    steps:
+      - name: login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Pull latest Docker image
+        run: |
+          docker pull ${{ env.DOCKER_IMAGE }}:latest
+      
+      - name: Run docker
+        run: |
+          docker rm -f ${{ env.DOCKER_CONTAINER }} || true
+          docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --restart always ${{ env.DOCKER_IMAGE }}:latest

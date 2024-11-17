@@ -14,7 +14,10 @@ public enum ErrorCode {
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "NOT_FOUND_MEMBER", "해당 Token을 가진 멤버가 존재하지 않습니다."),
 
     // Card
-    NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다.");
+    NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다."),
+
+    // ChatHistory
+    NOT_FOUND_CHATHISTORY(HttpStatus.NOT_FOUND, "NOT_FOUND_CHATHISTORY", "해당 id을 가진 상담기록이 존재하지 않습니다.");
 
     private final HttpStatus status;
     private final String code;

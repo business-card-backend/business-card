@@ -49,6 +49,11 @@ tasks.named('test') {
 }
 
 task copyPrivate(type: Copy) {
+	// copy if only empty
+	onlyIf {
+		def targetDir = file('src/main/resources')
+		return !targetDir.listFiles()?.length
+	}
 	copy {
 		from './business-card-config'
 		include "*"

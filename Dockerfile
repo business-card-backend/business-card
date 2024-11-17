@@ -6,7 +6,7 @@ COPY . .
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar	# gradlew를 통해 실행 가능한 jar파일 생성
 
-# 런파임 스테이지
+# 런타임 스테이지
 FROM openjdk:17
 COPY --from=builder build/libs/*.jar app.jar
 

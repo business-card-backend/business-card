@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -48,6 +49,11 @@ tasks.named('test') {
 }
 
 task copyPrivate(type: Copy) {
+	// copy if only empty
+	onlyIf {
+		def targetDir = file('src/main/resources')
+		return targetDir.listFiles()?.length <= 1
+	}
 	copy {
 		from './business-card-config'
 		include "*"

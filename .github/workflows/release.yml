@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
-      - name: Docker Build and push
+      - name: Docker Build
         id: docker_build
         run: |
           docker build -t ${{ env.DOCKER_IMAGE }}:latest .

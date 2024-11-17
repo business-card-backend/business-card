@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Source Code with Submodules
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           submodules: recursive
           fetch-depth: 0
         

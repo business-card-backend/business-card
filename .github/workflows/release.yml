@@ -36,12 +36,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
-      - name: Build and push
+      - name: Docker Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ env.DOCKER_IMAGE }}:latest
+        run: |
+          docker build -t ${{ env.DOCKER_IMAGE }}:latest .
+          
+      - name: Docker push
+        id: docker_push
+        run: |
+          docker push ${{ env.DOCKER_IMAGE }}:latest
 
   deploy:
     needs: build

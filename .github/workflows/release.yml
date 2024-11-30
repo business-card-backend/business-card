@@ -49,31 +49,31 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # Github container registry 로그인
     steps:
      - name: create EC2 run script 
-        run: |
-          echo "#!/bin/bash" > script.sh
-          echo "echo 'Logging into Docker...'" >> script.sh
-          echo "docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}" >> script.sh
+       run: |
+        # Create the script content
+        echo "#!/bin/bash" > script.sh
+        echo "echo 'Logging into Docker...'" >> script.sh
+        echo "docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}" >> script.sh
         
-          echo "echo 'Pulling Docker image...'" >> script.sh
-          echo "docker pull ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
+        echo "echo 'Pulling Docker image...'" >> script.sh
+        echo "docker pull ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
+  
+        echo "echo 'Running Docker container...'" >> script.sh
+        echo "docker rm -f ${{ env.DOCKER_CONTAINER }} || true" >> script.sh
+        echo "docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --restart always ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
+
+        echo "docker ps" >> script.sh  # Check running containers
+        
+     - name: EC2 ssh connection
+       run: |
+        echo "${{ secrets.AWS_PEM }}" >> $HOME/key.pem
+        chmod 400 $HOME/key.pem
           
-          echo "echo 'Running Docker container...'" >> script.sh
-          echo "docker rm -f ${{ env.DOCKER_CONTAINER }} || true" >> script.sh
-          echo "docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --restart always ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
+        # Copy script.sh to EC2 instance
+        scp -i $HOME/key.pem -o StrictHostKeyChecking=no script.sh ec2-user@${{ secrets.EC2_HOST }}:~/script.sh
           
-          echo "docker ps" >> script.sh
-    
-      - name: EC2 ssh connection
-        run: |
-          echo "${{ secrets.AWS_PEM }}" >> $HOME/key.pem
-          chmod 400 $HOME/key.pem
-          
-          # Copy script.sh to EC2 instance
-          scp -i $HOME/key.pem -o StrictHostKeyChecking=no script.sh ec2-user@${{ secrets.EC2_HOST }}:~/script.sh
-          
-          # Execute the script on EC2
-          ssh -i $HOME/key.pem -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} 'bash ~/script.sh'
+        # Execute the script on EC2
+        ssh -i $HOME/key.pem -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_HOST }} 'bash ~/script.sh'
 

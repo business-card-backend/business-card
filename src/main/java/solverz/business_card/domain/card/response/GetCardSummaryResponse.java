@@ -7,6 +7,9 @@ import solverz.business_card.domain.card.entity.Card;
 @Builder
 @Schema(description = "명함 요약 정보 응답")
 public record GetCardSummaryResponse(
+        @Schema(description = "명함 id")
+        Long cardId,
+
         @Schema(description = "명함 이미지 주소")
         String cardImgURL,
 
@@ -21,6 +24,7 @@ public record GetCardSummaryResponse(
 ) {
         public static GetCardSummaryResponse from(Card card) {
             return GetCardSummaryResponse.builder()
+                    .cardId(card.getId())
                     .cardImgURL(card.getCardImgURL())
                     .companyName(card.getCompanyName())
                     .companyAddress(card.getCompanyAddress())

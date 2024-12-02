@@ -1,18 +1,20 @@
 package solverz.business_card.domain.card.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
 import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
-import solverz.business_card.domain.card.request.GetCardRequest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Builder
 @Schema(description = "명함 세부정보 응답")
 public record GetCardResponse(
         @Schema(description = "고객 이름")
         String name,
+
+        @Schema(description = "고객 생일")
+        LocalDate birth,
 
         @Schema(description = "고객 회사명")
         String companyName,
@@ -41,6 +43,7 @@ public record GetCardResponse(
         public static GetCardResponse from(Card card) {
             return GetCardResponse.builder()
                     .name(card.getName())
+                    .birth(card.getBirth())
                     .companyName(card.getCompanyName())
                     .email(card.getEmail())
                     .phoneNumber(card.getPhoneNumber())

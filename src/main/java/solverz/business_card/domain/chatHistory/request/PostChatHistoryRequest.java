@@ -17,8 +17,8 @@ public record PostChatHistoryRequest(
         @Schema(description = "상담기록 내용", defaultValue = "오늘 회의는 성공적")
         String content,
 
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-        @Schema(description = "상담 일시", example = "2024-11-16T06:17")
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+        @Schema(description = "상담 일시", defaultValue = "2024-12-02T07:59:48.540", type="string")
         LocalDateTime chatAt
 ) {
         public static ChatHistory toChatHistory(PostChatHistoryRequest request) {

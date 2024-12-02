@@ -5,6 +5,9 @@ env:
   DOCKER_CONTAINER: business-card
 
 on:
+  workflow_run:
+    workflows: [ "BUILD TEST" ]
+    types: [ "complete" ]
   push:
     branches: [ develop ]
 

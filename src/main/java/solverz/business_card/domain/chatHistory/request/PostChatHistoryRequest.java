@@ -22,10 +22,13 @@ public record PostChatHistoryRequest(
         LocalDateTime chatAt
 ) {
         public static ChatHistory toChatHistory(PostChatHistoryRequest request) {
+                // 현재 시간을 기본값으로 설정
+                LocalDateTime defaultChatAt = LocalDateTime.now();
+
                 return ChatHistory.builder()
                         .title(request.title())
                         .content(request.content())
-                        .chatAt(request.chatAt())
+                        .chatAt(request.chatAt() != null ? request.chatAt() : defaultChatAt)
                         .build();
         }
 }

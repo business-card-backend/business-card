@@ -13,10 +13,14 @@ public record GetChatHistoryResponse(
         @Schema(description = "상담기록 id")
         Long chatHistoryId,
 
+        @Schema(description = "상담기록 제목")
         String title,
 
+        @Schema(description = "상담기록 내용")
         String content,
 
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+        @Schema(description = "상담 일시", defaultValue = "2024-12-02T07:59:48.540", type="string")
         LocalDateTime chatAt
 ) {
         public static GetChatHistoryResponse from(ChatHistory chatHistory) {

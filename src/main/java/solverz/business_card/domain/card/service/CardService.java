@@ -33,8 +33,7 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public GetCardResponse getCard(GetCardRequest request) {
-        Member member = memberService.getOnlyMember(request.memberToken());
-        Card card = cardRepository.findByIdAndMember(request.cardId(), member)
+        Card card = cardRepository.findById(request.cardId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
         return GetCardResponse.from(card);
     }
@@ -63,9 +62,8 @@ public class CardService {
     }
 
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {
-        Member member = memberService.getOnlyMember(request.memberToken());
-        Card card = cardRepository.findByIdAndMember(request.cardId(), member)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));;
+        Card card = cardRepository.findById(request.cardId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
         cardRepository.deleteById(request.cardId());
         return DeleteCardResponse.from(card);
     }

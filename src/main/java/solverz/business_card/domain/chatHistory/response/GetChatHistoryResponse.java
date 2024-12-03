@@ -1,5 +1,6 @@
 package solverz.business_card.domain.chatHistory.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 @Builder
 @Schema(description = "상담기록 요청 응답")
 public record GetChatHistoryResponse(
-        Long id,
+        @Schema(description = "상담기록 id")
+        Long chatHistoryId,
 
         String title,
 
@@ -19,7 +21,7 @@ public record GetChatHistoryResponse(
 ) {
         public static GetChatHistoryResponse from(ChatHistory chatHistory) {
             return GetChatHistoryResponse.builder()
-                    .id(chatHistory.getId())
+                    .chatHistoryId(chatHistory.getId())
                     .title(chatHistory.getTitle())
                     .content(chatHistory.getContent())
                     .chatAt(chatHistory.getChatAt())

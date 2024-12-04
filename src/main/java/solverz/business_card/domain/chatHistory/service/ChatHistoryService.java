@@ -44,13 +44,18 @@ public class ChatHistoryService {
     public GetChatHistoryResponse getChatHistory(Long cardId, Long chatHistoryId) {
         Card card = cardService.getOnlyCard(cardId);
         ChatHistory chatHistories = chatHistoryRepository.findByIdAndCard(chatHistoryId, card)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));;
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+        return GetChatHistoryResponse.from(chatHistories);
+    }
+
+    public GetChatHistoryResponse getChatHistory(Long chatHistoryId) {
+        ChatHistory chatHistories = chatHistoryRepository.findById(chatHistoryId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
         return GetChatHistoryResponse.from(chatHistories);
     }
 
     public PutChatHistoryResponse modifyChatHistory(PutChatHistoryRequest request) {
-        Card card = cardService.getOnlyCard(request.cardId());
-        ChatHistory chatHistory = chatHistoryRepository.findByIdAndCard(request.chatHistoryId(), card)
+        ChatHistory chatHistory = chatHistoryRepository.findById(request.chatHistoryId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
         ChatHistory modifyChatHistory = PutChatHistoryRequest.toChatHistory(request);
         chatHistory.updateChatHistory(modifyChatHistory);
@@ -58,8 +63,7 @@ public class ChatHistoryService {
     }
 
     public DeleteChatHistoryResponse deleteChatHistory(DeleteChatHistoryRequest request) {
-        Card card = cardService.getOnlyCard(request.cardId());
-        ChatHistory chatHistory = chatHistoryRepository.findByIdAndCard(request.chatHistoryId(), card)
+        ChatHistory chatHistory = chatHistoryRepository.findById(request.chatHistoryId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
         chatHistoryRepository.deleteById(request.chatHistoryId());
         return DeleteChatHistoryResponse.from(chatHistory);

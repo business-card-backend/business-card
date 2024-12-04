@@ -8,7 +8,7 @@ import solverz.business_card.domain.card.entity.Card;
 @Schema(description = "명함 수정 응답")
 public record PutCardResponse(
         @Schema(description = "등록된 명함 id")
-        Long id,
+        Long cardId,
 
         @Schema(description = "등록된 고객 이름")
         String name,
@@ -21,7 +21,7 @@ public record PutCardResponse(
 ) {
         public static PutCardResponse from(Card card) {
             return PutCardResponse.builder()
-                    .id(card.getId())
+                    .cardId(card.getId())
                     .name(card.getName())
                     .companyName(card.getCompanyName())
                     .email(card.getEmail())

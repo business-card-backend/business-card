@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
-import solverz.business_card.domain.chatHistory.response.DeleteChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.GetChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.PostChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.PutChatHistoryResponse;
+import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.chatHistory.service.ChatHistoryService;
 import solverz.business_card.domain.common.response.PageResponse;
 
@@ -36,13 +33,13 @@ public class ChatHistoryController {
     @Parameter(name = "page", description = "페이지 번호")
     @Parameter(name = "size", description = "페이지 크기")
     @GetMapping
-    public ResponseEntity<PageResponse<GetChatHistoryResponse>> getChatHistoryList(
+    public ResponseEntity<PageResponse<GetChatHistorySummaryResponse>> getChatHistoryList(
             @RequestParam Long cardId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageResponse<GetChatHistoryResponse> response = chatHistoryService.getChatHistoryList(cardId, pageable);
+        PageResponse<GetChatHistorySummaryResponse> response = chatHistoryService.getChatHistoryList(cardId, pageable);
         return ResponseEntity.ok(response);
     }
 

@@ -38,13 +38,6 @@ public class ChatHistoryService {
         return PageResponse.of(chatHistories.stream().map(GetChatHistorySummaryResponse::from).toList());
     }
 
-    public GetChatHistoryResponse getChatHistory(Long cardId, Long chatHistoryId) {
-        Card card = cardService.getOnlyCard(cardId);
-        ChatHistory chatHistories = chatHistoryRepository.findByIdAndCard(chatHistoryId, card)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
-        return GetChatHistoryResponse.from(chatHistories);
-    }
-
     public GetChatHistoryResponse getChatHistory(Long chatHistoryId) {
         ChatHistory chatHistories = chatHistoryRepository.findById(chatHistoryId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));

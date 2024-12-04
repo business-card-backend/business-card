@@ -12,10 +12,7 @@ import solverz.business_card.domain.chatHistory.repository.ChatHistoryRepository
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
-import solverz.business_card.domain.chatHistory.response.DeleteChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.GetChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.PostChatHistoryResponse;
-import solverz.business_card.domain.chatHistory.response.PutChatHistoryResponse;
+import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
@@ -35,17 +32,10 @@ public class ChatHistoryService {
         return PostChatHistoryResponse.from(chatHistory);
     }
 
-    public PageResponse<GetChatHistoryResponse> getChatHistoryList(Long cardId, Pageable pageable) {
+    public PageResponse<GetChatHistorySummaryResponse> getChatHistoryList(Long cardId, Pageable pageable) {
         Card card = cardService.getOnlyCard(cardId);
         Page<ChatHistory> chatHistories = chatHistoryRepository.findByCard(card, pageable);
-        return PageResponse.of(chatHistories.stream().map(GetChatHistoryResponse::from).toList());
-    }
-
-    public GetChatHistoryResponse getChatHistory(Long cardId, Long chatHistoryId) {
-        Card card = cardService.getOnlyCard(cardId);
-        ChatHistory chatHistories = chatHistoryRepository.findByIdAndCard(chatHistoryId, card)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
-        return GetChatHistoryResponse.from(chatHistories);
+        return PageResponse.of(chatHistories.stream().map(GetChatHistorySummaryResponse::from).toList());
     }
 
     public GetChatHistoryResponse getChatHistory(Long chatHistoryId) {

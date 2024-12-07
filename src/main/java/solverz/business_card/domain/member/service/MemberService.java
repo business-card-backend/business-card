@@ -76,6 +76,16 @@ public class MemberService {
         member.softDelete();
         return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
     }
+    // 회원 복구 요청
+    @Transactional
+    public ResponseEntity<Object> recoveryMember(String token) {
+        Member member = memberRepository.findByMemberToken(token)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
+
+        // member 복구
+        member.recoveryMember();
+        return ResponseEntity.noContent().build(); // 복구 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
+    }
 }
 
 

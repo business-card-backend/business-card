@@ -47,4 +47,10 @@ public class MemberController {
     public ResponseEntity<Object> deleteMember(@RequestParam String memberToken) {
         return memberService.deleteMember(memberToken); // 멤버 삭제
     }
+
+    @Operation(summary = "멤버 계정 복구", description = "soft delete된 멤버 계정 복구 API")
+    @PostMapping("/recover-account")
+    public ResponseEntity<Object> recoveryMember(@RequestParam String memberToken) {
+        return memberService.recoveryMember(memberToken); // 멤버 삭제
+    }
 }

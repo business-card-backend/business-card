@@ -6,14 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import solverz.business_card.domain.member.entity.Member;
 import solverz.business_card.domain.member.request.PatchMemberRequest;
 import solverz.business_card.domain.member.request.PostMemberRequest;
 import solverz.business_card.domain.member.response.GetMemberResponse;
 import solverz.business_card.domain.member.response.PatchMemberResponse;
 import solverz.business_card.domain.member.service.MemberService;
-
-import java.util.Optional;
 
 @Tag(name = "User", description = "슈트 멤버 관련 API")
 @RestController
@@ -42,7 +39,7 @@ public class MemberController {
         return memberService.updateMember(memberToken, patchMemberRequest); // 고객 정보 업데이트
     }
 
-    @Operation(summary = "멤버 회원탈퇴", description = "멤버 정보를 삭제하는 API")
+    @Operation(summary = "멤버 회원탈퇴", description = "멤버 정보를 삭제하는 API (soft delete)")
     @DeleteMapping
     public ResponseEntity<Object> deleteMember(@RequestParam String memberToken) {
         return memberService.deleteMember(memberToken); // 멤버 삭제

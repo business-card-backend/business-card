@@ -24,7 +24,7 @@ public class MemberService {
 
     @Transactional
     public Member getOnlyMember(String token){
-        Member member = memberRepository.findByMemberToken(token)
+        Member member = memberRepository.findByMemberTokenAndDeletedAtIsNull(token)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
         return member;
     }

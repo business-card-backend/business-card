@@ -12,7 +12,8 @@ import solverz.business_card.domain.member.repository.MemberRepository;
 import solverz.business_card.domain.member.response.GetMemberResponse;
 import solverz.business_card.domain.member.response.PatchMemberResponse;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -76,6 +77,7 @@ public class MemberService {
         member.softDelete();
         return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
     }
+
     // 회원 복구 요청
     @Transactional
     public ResponseEntity<Object> recoveryMember(String token) {
@@ -85,6 +87,18 @@ public class MemberService {
         // member 복구
         member.recoveryMember();
         return ResponseEntity.noContent().build(); // 복구 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
+    }
+
+    // 회원 영구 삭제
+    @Transactional
+    public int deleteExpiredMembers(LocalDateTime cutoffDate) {
+        return memberRepository.deleteExpiredMembers(cutoffDate);
+    }
+
+    // 영구삭제 기한 만료 회원 조회
+    @Transactional
+    public List<Member> findExpiredMembers(LocalDateTime cutoffDate) {
+        return memberRepository.findExpiredMembers(cutoffDate);
     }
 }
 

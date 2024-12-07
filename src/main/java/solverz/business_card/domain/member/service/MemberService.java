@@ -73,9 +73,8 @@ public class MemberService {
         Member member = getOnlyMember(token);
 
         // member 삭제
-        memberRepository.delete(member);
-
-        return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환
+        member.softDelete();
+        return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
     }
 }
 

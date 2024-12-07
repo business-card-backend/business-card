@@ -21,4 +21,21 @@ public abstract class BaseTimeEntity {
     private LocalDateTime modifiedDate;
 
     private LocalDateTime deletedAt;
+
+    // soft delete
+    public void softDelete() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    // check soft-deleted
+    public boolean isSoftDeleted() {
+        return deletedAt != null;
+    }
+
+    // recovery soft-deleted member
+    public void recoveryMember() {
+        if (isSoftDeleted()) {
+            this.deletedAt = null;
+        }
+    }
 }

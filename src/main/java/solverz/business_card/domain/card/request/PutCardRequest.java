@@ -40,7 +40,10 @@ public record PutCardRequest(
         BigDecimal longitude,
 
         @Schema(description = "명함 메모", defaultValue = "good")
-        String memo
+        String memo,
+
+        @Schema(description = "직책", defaultValue = "과장")
+                String position
 ) {
         public static Card toCard(PutCardRequest request) {
             return Card.builder()
@@ -54,6 +57,7 @@ public record PutCardRequest(
                     .latitude(request.latitude())
                     .longitude(request.longitude())
                     .memo(request.memo())
+                    .position(request.position())
                     .build();
         }
 }

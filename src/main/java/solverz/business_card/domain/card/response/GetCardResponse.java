@@ -38,7 +38,10 @@ public record GetCardResponse(
         BigDecimal longitude,
 
         @Schema(description = "명함 메모")
-        String memo
+        String memo,
+
+        @Schema(description = "고객 직책", defaultValue = "과장")
+        String position
 ) {
         public static GetCardResponse from(Card card) {
             return GetCardResponse.builder()
@@ -48,10 +51,12 @@ public record GetCardResponse(
                     .email(card.getEmail())
                     .phoneNumber(card.getPhoneNumber())
                     .cardImgURL(card.getCardImgURL())
+                    .companyAddress(card.getCompanyAddress())
                     .companyName(card.getCompanyName())
                     .latitude(card.getLatitude())
                     .longitude(card.getLongitude())
                     .memo(card.getMemo())
+                    .position(card.getPosition())
                     .build();
         }
 }

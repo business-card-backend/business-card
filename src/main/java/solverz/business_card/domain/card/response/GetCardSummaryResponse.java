@@ -13,19 +13,27 @@ public record GetCardSummaryResponse(
         @Schema(description = "명함 이미지 주소")
         String cardImgURL,
 
-        @Schema(description = "명함 회사 이름")
+        @Schema(description = "고객 이름")
+        String name,
+
+        @Schema(description = "고객 직책")
+        String position,
+
+        @Schema(description = "고객 회사명")
         String companyName,
 
-        @Schema(description = "명함 회사 주소")
+        @Schema(description = "고객 회사 주소")
         String companyAddress,
 
-        @Schema(description = "명함 회사 번호")
+        @Schema(description = "고객 회사 번호")
         String phoneNumber
 ) {
         public static GetCardSummaryResponse from(Card card) {
             return GetCardSummaryResponse.builder()
                     .cardId(card.getId())
                     .cardImgURL(card.getCardImgURL())
+                    .name(card.getName())
+                    .position(card.getPosition())
                     .companyName(card.getCompanyName())
                     .companyAddress(card.getCompanyAddress())
                     .phoneNumber(card.getPhoneNumber())

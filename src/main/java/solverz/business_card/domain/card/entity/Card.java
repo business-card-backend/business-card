@@ -55,6 +55,9 @@ public class Card extends BaseTimeEntity {
     @Column(name = "memo")
     String memo;
 
+    @Column(name = "position")
+    String position;
+
     @ManyToOne
     @JoinColumn(name = "memberToken", nullable = false)
     private Member member;
@@ -63,7 +66,7 @@ public class Card extends BaseTimeEntity {
     private List<ChatHistory> chatHistories = new ArrayList<>();
 
     @Builder
-    public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo) {
+    public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo, String position) {
         this.name = name;
         this.birth = LocalDate.parse(birth);
         this.companyName = companyName;
@@ -74,6 +77,7 @@ public class Card extends BaseTimeEntity {
         this.latitude = latitude;
         this.longitude = longitude;
         this.memo = memo;
+        this.position = position;
     }
 
     public void updateMember(Member member) {
@@ -120,6 +124,8 @@ public class Card extends BaseTimeEntity {
         this.memo = memo;
     }
 
+    public void updatePosition(String position) { this.position = position; }
+
     public void updateCard(Card card) {
         this.updateName(card.getName());
         this.updateBirth(card.getBirth());
@@ -131,5 +137,6 @@ public class Card extends BaseTimeEntity {
         this.updateLatitude(card.getLatitude());
         this.updateLongitude(card.getLongitude());
         this.updateMemo(card.getMemo());
+        this.updatePosition(card.getPosition());
     }
 }

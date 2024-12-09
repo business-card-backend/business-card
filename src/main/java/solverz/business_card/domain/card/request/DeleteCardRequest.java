@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "명함 삭제 요청")
 public record DeleteCardRequest(
-        @Schema(description = "Card ID", example = "1")
+        @Schema(description = "명함 id", example = "1")
         Long cardId
 ) {
 }

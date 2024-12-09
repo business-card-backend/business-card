@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 @Schema(description = "명함 세부정보 요청")
 public record GetCardRequest(
-        @Schema(description = "Card ID", example = "1")
+        @Schema(description = "명함 id", example = "1")
         Long cardId
 ) {
 }

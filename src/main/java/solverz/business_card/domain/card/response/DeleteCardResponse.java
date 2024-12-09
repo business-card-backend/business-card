@@ -7,16 +7,16 @@ import solverz.business_card.domain.card.entity.Card;
 @Builder
 @Schema(description = "명함 삭제 응답")
 public record DeleteCardResponse(
-        @Schema(description = "Card ID", example = "1")
+        @Schema(description = "명함 id", example = "1")
         Long cardId,
 
-        @Schema(description = "등록된 고객 이름")
+        @Schema(description = "삭제된 고객 이름")
         String name,
 
-        @Schema(description = "등록된 고객 회사명")
+        @Schema(description = "삭제된 고객 회사명")
         String companyName,
 
-        @Schema(description = "등록된 고객 이메일")
+        @Schema(description = "삭제된 고객 이메일")
         String email
 ) {
         public static DeleteCardResponse from(Card card) {

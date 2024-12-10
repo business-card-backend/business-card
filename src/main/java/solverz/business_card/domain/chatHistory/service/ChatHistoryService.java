@@ -32,10 +32,10 @@ public class ChatHistoryService {
         return PostChatHistoryResponse.from(chatHistory);
     }
 
-    public PageResponse<GetChatHistorySummaryResponse> getChatHistoryList(Long cardId, Pageable pageable) {
+    public PageResponse<GetChatHistoryResponse> getChatHistoryList(Long cardId, Pageable pageable) {
         Card card = cardService.getOnlyCard(cardId);
         Page<ChatHistory> chatHistories = chatHistoryRepository.findByCard(card, pageable);
-        return PageResponse.of(chatHistories.stream().map(GetChatHistorySummaryResponse::from).toList());
+        return PageResponse.of(chatHistories.stream().map(GetChatHistoryResponse::from).toList());
     }
 
     public GetChatHistoryResponse getChatHistory(Long chatHistoryId) {

@@ -33,13 +33,13 @@ public class ChatHistoryController {
     @Parameter(name = "page", description = "페이지 번호")
     @Parameter(name = "size", description = "페이지 크기")
     @GetMapping
-    public ResponseEntity<PageResponse<GetChatHistorySummaryResponse>> getChatHistoryList(
+    public ResponseEntity<PageResponse<GetChatHistoryResponse>> getChatHistoryList(
             @RequestParam Long cardId,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "20") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageResponse<GetChatHistorySummaryResponse> response = chatHistoryService.getChatHistoryList(cardId, pageable);
+        PageResponse<GetChatHistoryResponse> response = chatHistoryService.getChatHistoryList(cardId, pageable);
         return ResponseEntity.ok(response);
     }
 

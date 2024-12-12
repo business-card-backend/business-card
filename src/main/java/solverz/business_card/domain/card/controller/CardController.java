@@ -37,9 +37,9 @@ public class CardController {
     }
 
     @Operation(summary = "명함 상세보기 API", description = "특정 명함의 상세내용을 요청하는 API")
-    @PostMapping("/detail")
-    public ResponseEntity<GetCardResponse> getCard(GetCardRequest request) {
-        GetCardResponse response = cardService.getCard(request);
+    @GetMapping("/detail")
+    public ResponseEntity<GetCardResponse> getCard(@RequestParam Long cardId) {
+        GetCardResponse response = cardService.getCard(cardId);
         return ResponseEntity.ok(response);
     }
 

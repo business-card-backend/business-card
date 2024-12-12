@@ -32,8 +32,8 @@ public class CardService {
     }
 
     @Transactional(readOnly = true)
-    public GetCardResponse getCard(GetCardRequest request) {
-        Card card = cardRepository.findById(request.cardId())
+    public GetCardResponse getCard(Long cardId) {
+        Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
         return GetCardResponse.from(card);
     }

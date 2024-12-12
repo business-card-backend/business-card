@@ -63,7 +63,7 @@ jobs:
   
         echo "echo 'Running Docker container...'" >> script.sh
         echo "docker rm -f ${{ env.DOCKER_CONTAINER }} || true" >> script.sh
-        echo "docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --restart always ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
+        echo "docker run -d -p 8080:8080 --name ${{ env.DOCKER_CONTAINER }} --network host --restart always ${{ env.DOCKER_IMAGE }}:latest" >> script.sh
 
         echo "docker ps" >> script.sh  # Check running containers
         

@@ -6,7 +6,11 @@ import lombok.Getter;
 import solverz.business_card.domain.member.entity.LoginType;
 
 @Getter
+@Schema(description = "사용자 정보 수정 요청")
 public class PatchMemberRequest {
+    @Schema(description = "사용자 supabase 계정 토큰", defaultValue = "1234")
+    private String memberToken;
+
     @Schema(description = "사용자 계정 패스워드", defaultValue = "1234")
     private String password;
 

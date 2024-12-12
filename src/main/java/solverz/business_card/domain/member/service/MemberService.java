@@ -9,8 +9,7 @@ import solverz.business_card.domain.member.request.PatchMemberRequest;
 import solverz.business_card.domain.member.request.PostMemberRequest;
 import solverz.business_card.domain.member.entity.Member;
 import solverz.business_card.domain.member.repository.MemberRepository;
-import solverz.business_card.domain.member.response.GetMemberResponse;
-import solverz.business_card.domain.member.response.PatchMemberResponse;
+import solverz.business_card.domain.member.response.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,17 +38,22 @@ public class MemberService {
 
     // 회원가입
     @Transactional
-    public void registerMember(PostMemberRequest postMemberRequest) {
+    public PostMemberResponse registerMember(PostMemberRequest postMemberRequest) {
         Member newMember = Member.builder()
                 .memberToken(postMemberRequest.getMemberToken())
                 .email(postMemberRequest.getEmail())
                 .password(postMemberRequest.getPassword())
                 .nickname(postMemberRequest.getNickname())
                 .nameCardImgUrl(postMemberRequest.getNameCardImgUrl())
-                .memberToken(postMemberRequest.getMemberToken())
                 .loginType(postMemberRequest.getLoginType())
                 .build();
         memberRepository.save(newMember);
+
+        // 갱신된 member 조회
+        Member savedMember = memberRepository.findByMemberToken(newMember.getMemberToken())
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
+
+        return PostMemberResponse.memberToResponse(savedMember);
     }
 
     // 회원 정보 수정
@@ -70,23 +74,31 @@ public class MemberService {
 
     // 회원 삭제 요청
     @Transactional
-    public ResponseEntity<Object> deleteMember(String token) {
+    public ResponseEntity<DeleteMemberResponse> deleteMember(String token) {
         Member member = getOnlyMember(token);
 
         // member 삭제
         member.softDelete();
-        return ResponseEntity.noContent().build(); // 삭제 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
+
+        DeleteMemberResponse response = DeleteMemberResponse.memberToResponse(member);
+        return ResponseEntity.ok(response);
     }
 
     // 회원 복구 요청
     @Transactional
-    public ResponseEntity<Object> recoveryMember(String token) {
+    public ResponseEntity<PostRecoverAccountResponse> recoveryMember(String token) {
         Member member = memberRepository.findByMemberToken(token)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
 
+        // soft delete된 member인지 확인
+        if (!member.isSoftDeleted()) {
+            throw new BusinessException(ErrorCode.NOT_SOFT_DELETE_MEMBER);
+        }
+
         // member 복구
         member.recoveryMember();
-        return ResponseEntity.noContent().build(); // 복구 성공 시 204 No Content 응답 반환 // TODO: 200 + Content 반환
+        PostRecoverAccountResponse response = PostRecoverAccountResponse.memberToResponse(member);
+        return ResponseEntity.ok(response);
     }
 
     // 회원 영구 삭제

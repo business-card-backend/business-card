@@ -8,6 +8,7 @@ import solverz.business_card.domain.member.entity.Member;
 
 @Getter
 @Builder
+@Schema(description = "사용자 정보 수정 응답")
 public class PatchMemberResponse {
     @Schema(description = "사용자 계정 패스워드")
     private String password;

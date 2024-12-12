@@ -62,18 +62,16 @@ public class CardService {
     }
 
     @Transactional
-    public List<DeleteCardResponse> deleteCards(DeleteCardsRequest request) {
-        List<DeleteCardResponse> responses = new ArrayList<>();
+    public DeleteCardsResponse deleteCards(DeleteCardsRequest request) {
+        List<Card> cards = request.getCardIds().stream()
+                                .map(id -> cardRepository.findById(id)
+                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD)))
+                                .toList();
+        List<DeleteCardResponse> deletedCards;
 
-        for (Long id : request.getCardIds()) {
-            Card card = cardRepository.findById(id)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD));
-            cardRepository.deleteById(id);
-            // 삭제된 명함에 대한 응답을 추가
-            responses.add(DeleteCardResponse.from(card));
-        }
-
-        return responses;
+        request.getCardIds().forEach(id -> cardRepository.deleteById(id));
+        deletedCards = cards.stream().map(DeleteCardResponse::from).toList();
+        return DeleteCardsResponse.from(deletedCards);
     }
 
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {

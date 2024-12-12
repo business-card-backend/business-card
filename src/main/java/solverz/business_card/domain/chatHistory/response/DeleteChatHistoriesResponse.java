@@ -2,7 +2,6 @@ package solverz.business_card.domain.chatHistory.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
-import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 
 import java.util.List;
 
@@ -17,5 +16,4 @@ public record DeleteChatHistoriesResponse(
                     .chatHistories(chatHistories)
                     .build();
         }
-
 }

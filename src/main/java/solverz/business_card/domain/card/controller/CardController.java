@@ -59,8 +59,8 @@ public class CardController {
 
     @Operation(summary = "명함 삭제 API", description = "명함(1개 이상) 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<List<DeleteCardResponse>> deleteCard(DeleteCardsRequest requests) {
-        List<DeleteCardResponse> response = cardService.deleteCards(requests);
+    public ResponseEntity<DeleteCardsResponse> deleteCard(DeleteCardsRequest requests) {
+        DeleteCardsResponse response = cardService.deleteCards(requests);
         return ResponseEntity.ok(response);
     }
 }

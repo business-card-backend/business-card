@@ -66,11 +66,12 @@ public class ChatHistoryService {
     public DeleteChatHistoriesResponse deleteChatHistories(DeleteChatHistoriesRequest request) {
         List<ChatHistory> chatHistories = request.getChatHistoryIds().stream()
                                                 .map(id -> chatHistoryRepository.findById(id)
-                                                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
+                                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
                                                 .toList();
-        request.getChatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
+        List<DeleteChatHistoryResponse> deletedChatHistories;
 
-        List<DeleteChatHistoryResponse> deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
+        request.getChatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
+        deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
         return DeleteChatHistoriesResponse.from(deletedChatHistories);
     }
 }

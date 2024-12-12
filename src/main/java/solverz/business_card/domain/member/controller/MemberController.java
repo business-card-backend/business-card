@@ -27,7 +27,7 @@ public class MemberController {
     }
 
     @Operation(summary = "멤버 회원가입", description = "새 멤버를 등록하는 API")
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<PostMemberResponse> postMember(@RequestBody PostMemberRequest postMemberRequest) {
         PostMemberResponse response = memberService.registerMember(postMemberRequest); // 서비스에서 회원가입 처리
         return ResponseEntity.ok(response);

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@Schema(description = "사용자 정보 응답")
 public class GetMemberResponse {
     @Schema(description = "사용자 등록 이메일")
     String email;

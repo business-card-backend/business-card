@@ -7,6 +7,7 @@ import solverz.business_card.domain.member.entity.LoginType;
 
 @Builder
 @Getter
+@Schema(description = "사용자 등록 요청")
 public class PostMemberRequest {
     @Schema(description = "사용자 supabase 계정 토큰", defaultValue = "1234")
     private String memberToken;

@@ -65,17 +65,13 @@ public class ChatHistoryService {
     }
 
     @Transactional
-    public List<DeleteChatHistoryResponse> deleteChatHistories(DeleteChatHistoriesRequest request) {
-        List<DeleteChatHistoryResponse> responses = new ArrayList<>();
+    public DeleteChatHistoriesResponse deleteChatHistories(DeleteChatHistoriesRequest request) {
+        List<ChatHistory> chatHistories = request.getChatHistoryIds().stream()
+                                                .map(id -> chatHistoryRepository.findById(id)
+                                                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
+                                                .toList();
 
-        for (Long id : request.getChatHistoryIds()) {
-            ChatHistory chatHistory = chatHistoryRepository.findById(id)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY));
-            chatHistoryRepository.deleteById(id);
-            // 삭제된 명함에 대한 응답을 추가
-            responses.add(DeleteChatHistoryResponse.from(chatHistory));
-        }
-
-        return responses;
+        List<DeleteChatHistoryResponse> deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
+        return DeleteChatHistoriesResponse.from(deletedChatHistories);
     }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Schema(description = "1개 이상 상담기록 삭제 요청")
 public class DeleteChatHistoriesRequest {
-    @Schema(description = "상담기록 아이디", defaultValue = "[1]")
+    @Schema(description = "상담기록 아이디", defaultValue = "[1, 2]")
     List<Long> chatHistoryIds;
 }

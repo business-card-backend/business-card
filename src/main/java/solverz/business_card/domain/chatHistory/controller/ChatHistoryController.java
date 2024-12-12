@@ -64,8 +64,8 @@ public class ChatHistoryController {
 
     @Operation(summary = "상담기록 삭제 API", description = "상담기록(1개 이상) 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<List<DeleteChatHistoryResponse>> deleteChatHistory(DeleteChatHistoriesRequest request) {
-        List<DeleteChatHistoryResponse> response = chatHistoryService.deleteChatHistories(request);
+    public ResponseEntity<DeleteChatHistoriesResponse> deleteChatHistory(DeleteChatHistoriesRequest request) {
+        DeleteChatHistoriesResponse response = chatHistoryService.deleteChatHistories(request);
         return ResponseEntity.ok(response);
     }
 }

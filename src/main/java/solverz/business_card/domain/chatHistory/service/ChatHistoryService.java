@@ -9,6 +9,7 @@ import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.chatHistory.repository.ChatHistoryRepository;
+import solverz.business_card.domain.chatHistory.request.DeleteChatHistoriesRequest;
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
@@ -16,6 +17,8 @@ import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +60,18 @@ public class ChatHistoryService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
         chatHistoryRepository.deleteById(request.chatHistoryId());
         return DeleteChatHistoryResponse.from(chatHistory);
+    }
+
+    @Transactional
+    public DeleteChatHistoriesResponse deleteChatHistories(DeleteChatHistoriesRequest request) {
+        List<ChatHistory> chatHistories = request.getChatHistoryIds().stream()
+                                                .map(id -> chatHistoryRepository.findById(id)
+                                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
+                                                .toList();
+        List<DeleteChatHistoryResponse> deletedChatHistories;
+
+        request.getChatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
+        deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
+        return DeleteChatHistoriesResponse.from(deletedChatHistories);
     }
 }

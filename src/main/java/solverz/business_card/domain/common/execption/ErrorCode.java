@@ -18,8 +18,12 @@ public enum ErrorCode {
     // Card
     NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다."),
 
+    DELETION_FAILED_CARD(HttpStatus.NOT_FOUND, "DELETION_FAILED_CARD", "존재하지 않는 명함이 포함되어 있습니다."),
+
     // ChatHistory
-    NOT_FOUND_CHATHISTORY(HttpStatus.NOT_FOUND, "NOT_FOUND_CHATHISTORY", "해당 id을 가진 상담기록이 존재하지 않습니다.");
+    NOT_FOUND_CHATHISTORY(HttpStatus.NOT_FOUND, "NOT_FOUND_CHATHISTORY", "해당 id을 가진 상담기록이 존재하지 않습니다."),
+
+    DELETION_FAILED_CHATHISTORY(HttpStatus.NOT_FOUND, "DELETION_FAILED_CHATHISTORY", "존재하지 않는 상담기록이 포함되어 있습니다.");
 
     private final HttpStatus status;
     private final String code;

@@ -87,9 +87,7 @@ public class Member extends BaseTimeEntity {
 
     // recovery soft-deleted member
     public void recoveryMember() {
-        if (isSoftDeleted()) {
-            this.deletedAt = null;
-        }
+        this.deletedAt = null;
     }
 
     @Builder

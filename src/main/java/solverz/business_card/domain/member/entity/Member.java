@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.common.BaseTimeEntity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "loginType", nullable = false)
     LoginType loginType;
 
+    @Column(name= "deletedAt")
+    LocalDateTime deletedAt;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();
 
@@ -71,8 +75,25 @@ public class Member extends BaseTimeEntity {
         }
     }
 
+    // soft delete
+    public void softDelete() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    // check soft-deleted
+    public boolean isSoftDeleted() {
+        return deletedAt != null;
+    }
+
+    // recovery soft-deleted member
+    public void recoveryMember() {
+        if (isSoftDeleted()) {
+            this.deletedAt = null;
+        }
+    }
+
     @Builder
-    public Member(Long memberId, String memberToken, String email, String password, String nickname, String nameCardImgUrl, LoginType loginType) {
+    public Member(Long memberId, String memberToken, String email, String password, String nickname, String nameCardImgUrl, LoginType loginType, LocalDateTime deletedAt) {
 //        this.memberId = memberId;
         this.memberToken = memberToken;
         this.email = email;
@@ -80,5 +101,6 @@ public class Member extends BaseTimeEntity {
         this.nickname = nickname;
         this.nameCardImgUrl = nameCardImgUrl;
         this.loginType = loginType;
+        this.deletedAt = deletedAt;
     }
 }

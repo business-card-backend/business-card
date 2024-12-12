@@ -7,6 +7,9 @@ import solverz.business_card.domain.member.entity.LoginType;
 
 @Getter
 public class PatchMemberRequest {
+    @Schema(description = "사용자 supabase 계정 토큰", defaultValue = "1234")
+    private String memberToken;
+
     @Schema(description = "사용자 계정 패스워드", defaultValue = "1234")
     private String password;
 

@@ -8,6 +8,9 @@ import solverz.business_card.domain.member.entity.LoginType;
 @Builder
 @Getter
 public class PostMemberRequest {
+    @Schema(description = "사용자 supabase 계정 토큰", defaultValue = "1234")
+    private String memberToken;
+
     @Schema(description = "사용자 등록 이메일", defaultValue = "test@mail.com")
     private String email;
 
@@ -22,8 +25,5 @@ public class PostMemberRequest {
 
     @Schema(description = "사용자 로그인 타입 (EMAIL, GMAIL, APPLE_MAIL)", defaultValue = "EMAIL")
     private LoginType loginType;
-
-    @Schema(description = "사용자 supabase 계정 토큰", defaultValue = "1234")
-    private String memberToken;
 }
 

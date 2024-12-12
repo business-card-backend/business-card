@@ -64,6 +64,7 @@ public class ChatHistoryService {
         return DeleteChatHistoryResponse.from(chatHistory);
     }
 
+    @Transactional
     public List<DeleteChatHistoryResponse> deleteChatHistories(DeleteChatHistoriesRequest request) {
         List<DeleteChatHistoryResponse> responses = new ArrayList<>();
 

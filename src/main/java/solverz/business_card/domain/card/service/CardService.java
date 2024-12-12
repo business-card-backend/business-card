@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.card.repository.CardRepository;
-import solverz.business_card.domain.card.request.DeleteCardRequest;
-import solverz.business_card.domain.card.request.GetCardRequest;
-import solverz.business_card.domain.card.request.PostCardRequest;
-import solverz.business_card.domain.card.request.PutCardRequest;
+import solverz.business_card.domain.card.request.*;
 import solverz.business_card.domain.card.response.*;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
 import solverz.business_card.domain.member.entity.Member;
 import solverz.business_card.domain.member.service.MemberService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +59,21 @@ public class CardService {
         Card modifyCard = PutCardRequest.toCard(request);
         card.updateCard(modifyCard);
         return PutCardResponse.from(card);
+    }
+
+    @Transactional
+    public List<DeleteCardResponse> deleteCards(DeleteCardsRequest request) {
+        List<DeleteCardResponse> responses = new ArrayList<>();
+
+        for (Long id : request.getCardIds()) {
+            Card card = cardRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+            cardRepository.deleteById(id);
+            // 삭제된 명함에 대한 응답을 추가
+            responses.add(DeleteCardResponse.from(card));
+        }
+
+        return responses;
     }
 
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {

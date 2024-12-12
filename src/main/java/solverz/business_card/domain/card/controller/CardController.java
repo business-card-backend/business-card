@@ -8,13 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import solverz.business_card.domain.card.request.DeleteCardRequest;
-import solverz.business_card.domain.card.request.GetCardRequest;
-import solverz.business_card.domain.card.request.PostCardRequest;
-import solverz.business_card.domain.card.request.PutCardRequest;
+import solverz.business_card.domain.card.request.*;
 import solverz.business_card.domain.card.response.*;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.common.response.PageResponse;
+
+import java.util.List;
 
 @Tag(name = "Card", description = "명함 관련 API")
 @RestController
@@ -60,8 +59,8 @@ public class CardController {
 
     @Operation(summary = "명함 삭제 API", description = "명함 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<DeleteCardResponse> deleteCard(DeleteCardRequest request) {
-        DeleteCardResponse response = cardService.deleteCard(request);
+    public ResponseEntity<List<DeleteCardResponse>> deleteCard(DeleteCardsRequest requests) {
+        List<DeleteCardResponse> response = cardService.deleteCards(requests);
         return ResponseEntity.ok(response);
     }
 }

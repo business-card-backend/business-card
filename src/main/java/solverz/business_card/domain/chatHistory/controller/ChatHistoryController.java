@@ -8,12 +8,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import solverz.business_card.domain.card.response.DeleteCardResponse;
+import solverz.business_card.domain.chatHistory.request.DeleteChatHistoriesRequest;
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.chatHistory.service.ChatHistoryService;
 import solverz.business_card.domain.common.response.PageResponse;
+
+import java.util.List;
 
 @Tag(name = "ChatHistory", description = "상담기록 관련 API")
 @RestController
@@ -58,10 +62,10 @@ public class ChatHistoryController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "상담기록 삭제 API", description = "상담기록 삭제를 요청하는 API")
+    @Operation(summary = "상담기록 삭제 API", description = "상담기록(1개 이상) 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<DeleteChatHistoryResponse> deleteChatHistory(DeleteChatHistoryRequest request) {
-        DeleteChatHistoryResponse response = chatHistoryService.deleteChatHistory(request);
+    public ResponseEntity<List<DeleteChatHistoryResponse>> deleteChatHistory(DeleteChatHistoriesRequest request) {
+        List<DeleteChatHistoryResponse> response = chatHistoryService.deleteChatHistories(request);
         return ResponseEntity.ok(response);
     }
 }

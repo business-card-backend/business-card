@@ -6,9 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solverz.business_card.domain.card.entity.Card;
+import solverz.business_card.domain.card.response.DeleteCardResponse;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.chatHistory.repository.ChatHistoryRepository;
+import solverz.business_card.domain.chatHistory.request.DeleteChatHistoriesRequest;
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
@@ -16,6 +18,9 @@ import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +62,19 @@ public class ChatHistoryService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
         chatHistoryRepository.deleteById(request.chatHistoryId());
         return DeleteChatHistoryResponse.from(chatHistory);
+    }
+
+    public List<DeleteChatHistoryResponse> deleteChatHistories(DeleteChatHistoriesRequest request) {
+        List<DeleteChatHistoryResponse> responses = new ArrayList<>();
+
+        for (Long id : request.getChatHistoryIds()) {
+            ChatHistory chatHistory = chatHistoryRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+            chatHistoryRepository.deleteById(id);
+            // 삭제된 명함에 대한 응답을 추가
+            responses.add(DeleteChatHistoryResponse.from(chatHistory));
+        }
+
+        return responses;
     }
 }

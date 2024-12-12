@@ -67,7 +67,7 @@ public class CardService {
 
         for (Long id : request.getCardIds()) {
             Card card = cardRepository.findById(id)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD));
             cardRepository.deleteById(id);
             // 삭제된 명함에 대한 응답을 추가
             responses.add(DeleteCardResponse.from(card));
@@ -78,7 +78,7 @@ public class CardService {
 
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {
         Card card = cardRepository.findById(request.cardId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+                .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD));
         cardRepository.deleteById(request.cardId());
         return DeleteCardResponse.from(card);
     }

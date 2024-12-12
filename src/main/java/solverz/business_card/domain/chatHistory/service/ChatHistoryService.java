@@ -70,7 +70,7 @@ public class ChatHistoryService {
 
         for (Long id : request.getChatHistoryIds()) {
             ChatHistory chatHistory = chatHistoryRepository.findById(id)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+                    .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY));
             chatHistoryRepository.deleteById(id);
             // 삭제된 명함에 대한 응답을 추가
             responses.add(DeleteChatHistoryResponse.from(chatHistory));

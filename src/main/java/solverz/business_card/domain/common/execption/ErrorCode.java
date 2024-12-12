@@ -13,6 +13,8 @@ public enum ErrorCode {
     // Member
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "NOT_FOUND_MEMBER", "해당 Token을 가진 멤버가 존재하지 않습니다."),
 
+    NOT_SOFT_DELETE_MEMBER(HttpStatus.NOT_FOUND, "NOT_FOUND_MEMBER", "삭제 요청이 들어온 멤버가 아닙니다."),
+
     // Card
     NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다."),
 

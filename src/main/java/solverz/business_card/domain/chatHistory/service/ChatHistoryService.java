@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solverz.business_card.domain.card.entity.Card;
-import solverz.business_card.domain.card.response.DeleteCardResponse;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.chatHistory.repository.ChatHistoryRepository;
@@ -19,7 +18,6 @@ import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,6 +68,7 @@ public class ChatHistoryService {
                                                 .map(id -> chatHistoryRepository.findById(id)
                                                     .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
                                                 .toList();
+        request.getChatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
 
         List<DeleteChatHistoryResponse> deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
         return DeleteChatHistoriesResponse.from(deletedChatHistories);

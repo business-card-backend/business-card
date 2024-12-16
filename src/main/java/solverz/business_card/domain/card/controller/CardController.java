@@ -45,21 +45,21 @@ public class CardController {
 
     @Operation(summary = "명함 등록 API", description = "명함 등록을 요청하는 API")
     @PostMapping
-    public ResponseEntity<PostCardResponse> enrollCard(PostCardRequest request) {
+    public ResponseEntity<PostCardResponse> enrollCard(@RequestBody PostCardRequest request) {
         PostCardResponse response = cardService.enrollCard(request);
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "명함 수정 API", description = "명함 수정을 요청하는 API")
     @PutMapping
-    public ResponseEntity<PutCardResponse> modifyCard(PutCardRequest request) {
+    public ResponseEntity<PutCardResponse> modifyCard(@RequestBody PutCardRequest request) {
         PutCardResponse response = cardService.modifyCard(request);
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "명함 삭제 API", description = "명함(1개 이상) 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<DeleteCardsResponse> deleteCard(DeleteCardsRequest requests) {
+    public ResponseEntity<DeleteCardsResponse> deleteCard(@RequestBody DeleteCardsRequest requests) {
         DeleteCardsResponse response = cardService.deleteCards(requests);
         return ResponseEntity.ok(response);
     }

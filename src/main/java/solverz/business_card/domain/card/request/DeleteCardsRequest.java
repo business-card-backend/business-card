@@ -6,7 +6,6 @@ import lombok.Getter;
 
 import java.util.List;
 
-@Builder
 @Getter
 @Schema(description = "1개 이상의 명함 삭제 요청")
 public class DeleteCardsRequest {

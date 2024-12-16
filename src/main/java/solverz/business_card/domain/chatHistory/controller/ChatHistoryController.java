@@ -28,7 +28,7 @@ public class ChatHistoryController {
 
     @Operation(summary = "상담기록 추가 API", description = "상담기록 추가를 요청하는 API")
     @PostMapping
-    public ResponseEntity<PostChatHistoryResponse> addChatHistory(PostChatHistoryRequest request) {
+    public ResponseEntity<PostChatHistoryResponse> addChatHistory(@RequestBody PostChatHistoryRequest request) {
         PostChatHistoryResponse response = chatHistoryService.addChatHistory(request);
         return ResponseEntity.ok(response);
     }
@@ -57,14 +57,14 @@ public class ChatHistoryController {
 
     @Operation(summary = "상담기록 수정 API", description = "상담기록 수정을 요청하는 API")
     @PutMapping
-    public ResponseEntity<PutChatHistoryResponse> modifyChatHistory(PutChatHistoryRequest request) {
+    public ResponseEntity<PutChatHistoryResponse> modifyChatHistory(@RequestBody PutChatHistoryRequest request) {
         PutChatHistoryResponse response = chatHistoryService.modifyChatHistory(request);
         return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "상담기록 삭제 API", description = "상담기록(1개 이상) 삭제를 요청하는 API")
     @DeleteMapping
-    public ResponseEntity<DeleteChatHistoriesResponse> deleteChatHistory(DeleteChatHistoriesRequest request) {
+    public ResponseEntity<DeleteChatHistoriesResponse> deleteChatHistory(@RequestBody DeleteChatHistoriesRequest request) {
         DeleteChatHistoriesResponse response = chatHistoryService.deleteChatHistories(request);
         return ResponseEntity.ok(response);
     }

@@ -1,7 +1,9 @@
 package solverz.business_card.domain.member.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
@@ -18,13 +20,17 @@ import java.util.List;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
     @Transactional
     public Member getOnlyMember(String token){
-        Member member = memberRepository.findByMemberTokenAndDeletedAtIsNull(token)
+        Member member = memberRepository.findByDeletedAtIsNull()
+                .filter(m -> passwordEncoder.matches(token, m.getMemberToken()))  // 암호화된 값과 비교
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
         return member;
     }
@@ -39,10 +45,13 @@ public class MemberService {
     // 회원가입
     @Transactional
     public PostMemberResponse registerMember(PostMemberRequest postMemberRequest) {
+        String encodedPassword = passwordEncoder.encode(postMemberRequest.getPassword()); // encoding
+        String encodedToken = passwordEncoder.encode(postMemberRequest.getMemberToken()); // encoding
+
         Member newMember = Member.builder()
-                .memberToken(postMemberRequest.getMemberToken())
+                .memberToken(encodedToken)
                 .email(postMemberRequest.getEmail())
-                .password(postMemberRequest.getPassword())
+                .password(encodedPassword)
                 .nickname(postMemberRequest.getNickname())
                 .nameCardImgUrl(postMemberRequest.getNameCardImgUrl())
                 .loginType(postMemberRequest.getLoginType())
@@ -62,7 +71,9 @@ public class MemberService {
         Member member = getOnlyMember(token);
 
         // 회원 정보 update
-        member.updatePassword(patchMemberRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(patchMemberRequest.getPassword()); // encoding
+
+        member.updatePassword(encodedPassword);
         member.updateNickname(patchMemberRequest.getNickname());
         member.updateNameCardImgUrl(patchMemberRequest.getNameCardImgUrl());
 
@@ -87,7 +98,10 @@ public class MemberService {
     // 회원 복구 요청
     @Transactional
     public ResponseEntity<PostRecoverAccountResponse> recoveryMember(String token) {
-        Member member = memberRepository.findByMemberToken(token)
+        Member member = memberRepository.findAll()
+                .stream()
+                .filter(m -> passwordEncoder.matches(token, m.getMemberToken()))  // 암호화된 값과 비교
+                .findFirst()
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
 
         // soft delete된 member인지 확인

@@ -45,6 +45,9 @@ dependencies {
 
 	// Spring Batch
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+	// Security crypto
+	implementation 'org.springframework.security:spring-security-crypto:5.7.1'
 }
 
 tasks.named('test') {

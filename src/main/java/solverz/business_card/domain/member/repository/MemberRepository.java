@@ -19,7 +19,7 @@ public interface MemberRepository extends JpaRepository<Member, MemberKey> {
     // token으로 softDeleted되지 않은 멤버 조회
     Optional<Member> findByMemberTokenAndDeletedAtIsNull(String memberToken);
 
-    public Optional<Member> findByDeletedAtIsNull();
+    Optional<Member> findByDeletedAtIsNull();
 
 
     // 30일 이상 지난 soft delete 멤버 조회

@@ -32,7 +32,7 @@ public class ChatHistoryService {
 
     public PostChatHistoryResponse addChatHistory(PostChatHistoryRequest request) {
         Member member = memberService.getOnlyMember(request.memberToken());
-        Card card = cardService.getOnlyCard(request.cardId());
+        Card card = cardService.getOnlyCard(request.cardId(), request.memberToken());
         ChatHistory chatHistory = PostChatHistoryRequest.toChatHistory(request);
         chatHistory.updateMember(member);
         chatHistory.updateCard(card);
@@ -40,8 +40,8 @@ public class ChatHistoryService {
         return PostChatHistoryResponse.from(chatHistory);
     }
 
-    public PageResponse<GetChatHistoryResponse> getChatHistoryList(Long cardId, Pageable pageable) {
-        Card card = cardService.getOnlyCard(cardId);
+    public PageResponse<GetChatHistoryResponse> getChatHistoryList(Long cardId, String memberToken, Pageable pageable) {
+        Card card = cardService.getOnlyCard(cardId, memberToken);
         Page<ChatHistory> chatHistories = chatHistoryRepository.findByCard(card, pageable);
         return PageResponse.of(chatHistories.stream().map(GetChatHistoryResponse::from).toList());
     }

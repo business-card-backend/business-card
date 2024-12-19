@@ -24,9 +24,12 @@ public class CardService {
     private final CardRepository cardRepository;
     private final MemberService memberService;
 
-    public Card getOnlyCard(Long id) {
+    public Card getOnlyCard(Long id, String memberToken) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+        if (!card.getMember().getMemberToken().equals(memberToken)) {
+            throw new BusinessException(ErrorCode.NOT_CARD_OWNER);
+        }
         return card;
     }
 

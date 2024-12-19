@@ -18,6 +18,8 @@ public enum ErrorCode {
     // Card
     NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다."),
 
+    NOT_CARD_OWNER(HttpStatus.NOT_FOUND, "NOT_CARD_OWNER", "해당 멤버의 명함이 아닙니다."),
+
     DELETION_FAILED_CARD(HttpStatus.NOT_FOUND, "DELETION_FAILED_CARD", "존재하지 않는 명함이 포함되어 있습니다."),
 
     // ChatHistory

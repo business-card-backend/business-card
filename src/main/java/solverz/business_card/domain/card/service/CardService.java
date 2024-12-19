@@ -15,7 +15,6 @@ import solverz.business_card.domain.common.response.PageResponse;
 import solverz.business_card.domain.member.entity.Member;
 import solverz.business_card.domain.member.service.MemberService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,9 +31,12 @@ public class CardService {
     }
 
     @Transactional(readOnly = true)
-    public GetCardResponse getCard(Long cardId) {
+    public GetCardResponse getCard(Long cardId, String memberToken) {
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+        if (!card.getMember().getMemberToken().equals(memberToken)) {
+            throw new BusinessException(ErrorCode.NOT_CARD_OWNER);
+        }
         return GetCardResponse.from(card);
     }
 
@@ -56,6 +58,9 @@ public class CardService {
     public PutCardResponse modifyCard(PutCardRequest request) {
         Card card = cardRepository.findById(request.cardId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CARD));
+        if (!card.getMember().getMemberToken().equals(request.memberToken())) {
+            throw new BusinessException(ErrorCode.NOT_CARD_OWNER);
+        }
         Card modifyCard = PutCardRequest.toCard(request);
         card.updateCard(modifyCard);
         return PutCardResponse.from(card);
@@ -63,13 +68,19 @@ public class CardService {
 
     @Transactional
     public DeleteCardsResponse deleteCards(DeleteCardsRequest request) {
-        List<Card> cards = request.getCardIds().stream()
-                                .map(id -> cardRepository.findById(id)
-                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD)))
+        String ownerToken = request.memberToken();
+        List<Card> cards = request.cardIds().stream()
+                                .map(id -> {
+                                    Card card = cardRepository.findById(id)
+                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD));
+                                    if (!card.getMember().getMemberToken().equals(ownerToken)) {
+                                        throw new BusinessException(ErrorCode.NOT_CARD_OWNER);
+                                    }
+                                    return card; // 조건을 통과한 카드 반환
+                                })
                                 .toList();
         List<DeleteCardResponse> deletedCards;
-
-        request.getCardIds().forEach(id -> cardRepository.deleteById(id));
+        request.cardIds().forEach(cardRepository::deleteById);
         deletedCards = cards.stream().map(DeleteCardResponse::from).toList();
         return DeleteCardsResponse.from(deletedCards);
     }

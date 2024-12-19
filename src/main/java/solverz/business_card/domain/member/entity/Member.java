@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import solverz.business_card.domain.card.entity.Card;
+import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.common.BaseTimeEntity;
 
 import java.time.LocalDateTime;
@@ -57,6 +58,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
     private List<Card> cards = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", orphanRemoval = true)
+    private List<ChatHistory> chatHistories = new ArrayList<>();
 
     public void updatePassword(String password) {
         if (password != null) {

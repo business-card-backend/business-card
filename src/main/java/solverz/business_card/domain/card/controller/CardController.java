@@ -13,8 +13,6 @@ import solverz.business_card.domain.card.response.*;
 import solverz.business_card.domain.card.service.CardService;
 import solverz.business_card.domain.common.response.PageResponse;
 
-import java.util.List;
-
 @Tag(name = "Card", description = "명함 관련 API")
 @RestController
 @RequiredArgsConstructor
@@ -38,8 +36,8 @@ public class CardController {
 
     @Operation(summary = "명함 상세보기 API", description = "특정 명함의 상세내용을 요청하는 API")
     @GetMapping("/detail")
-    public ResponseEntity<GetCardResponse> getCard(@RequestParam Long cardId) {
-        GetCardResponse response = cardService.getCard(cardId);
+    public ResponseEntity<GetCardResponse> getCard(@RequestParam Long cardId, @RequestParam String memberToken) {
+        GetCardResponse response = cardService.getCard(cardId, memberToken);
         return ResponseEntity.ok(response);
     }
 

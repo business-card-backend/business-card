@@ -8,16 +8,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import solverz.business_card.domain.card.response.DeleteCardResponse;
 import solverz.business_card.domain.chatHistory.request.DeleteChatHistoriesRequest;
-import solverz.business_card.domain.chatHistory.request.DeleteChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PostChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.request.PutChatHistoryRequest;
 import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.chatHistory.service.ChatHistoryService;
 import solverz.business_card.domain.common.response.PageResponse;
-
-import java.util.List;
 
 @Tag(name = "ChatHistory", description = "상담기록 관련 API")
 @RestController
@@ -50,8 +46,8 @@ public class ChatHistoryController {
     @Operation(summary = "상담기록 상세정보 API", description = "상담기록의 상세정보를 요청하는 API")
     @Parameter(name = "chatHistoryId", description = "상담기록 id")
     @GetMapping("/detail")
-    public ResponseEntity<GetChatHistoryResponse> getChatHistory(@RequestParam Long chatHistoryId) {
-        GetChatHistoryResponse response = chatHistoryService.getChatHistory(chatHistoryId);
+    public ResponseEntity<GetChatHistoryResponse> getChatHistory(@RequestParam Long chatHistoryId, @RequestParam String memberToken) {
+        GetChatHistoryResponse response = chatHistoryService.getChatHistory(chatHistoryId, memberToken);
         return ResponseEntity.ok(response);
     }
 

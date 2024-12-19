@@ -11,6 +11,9 @@ public record PutChatHistoryRequest(
         @Schema(description = "상담기록 아이디", defaultValue = "1")
         Long chatHistoryId,
 
+        @Schema(description = "멤버 토큰", defaultValue = "1234")
+        String memberToken,
+
         @Schema(description = "상담기록 제목", defaultValue = "슈트 상담기록")
         String title,
 

@@ -12,6 +12,9 @@ public record PutCardRequest(
         @Schema(description = "명함 id", defaultValue = "1")
         Long cardId,
 
+        @Schema(description = "멤버 토큰", defaultValue = "1234")
+        String memberToken,
+
         @Schema(description = "고객 이름", defaultValue = "customer")
         String name,
 

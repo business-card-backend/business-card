@@ -35,9 +35,9 @@ public class ChatHistoryController {
     @GetMapping
     public ResponseEntity<PageResponse<GetChatHistoryResponse>> getChatHistoryList(
             @RequestParam Long cardId,
+            @RequestParam String memberToken,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "20") int size,
-            @RequestParam String memberToken
+            @RequestParam(value = "size", defaultValue = "20") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageResponse<GetChatHistoryResponse> response = chatHistoryService.getChatHistoryList(cardId, memberToken, pageable);

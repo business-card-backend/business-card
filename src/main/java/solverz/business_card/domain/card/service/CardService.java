@@ -88,6 +88,9 @@ public class CardService {
     public DeleteCardResponse deleteCard(DeleteCardRequest request) {
         Card card = cardRepository.findById(request.cardId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CARD));
+        if (!card.getMember().getMemberToken().equals(request.memberToken())) {
+            throw new BusinessException(ErrorCode.NOT_CARD_OWNER);
+        }
         cardRepository.deleteById(request.cardId());
         return DeleteCardResponse.from(card);
     }

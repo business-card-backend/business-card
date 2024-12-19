@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import solverz.business_card.domain.card.entity.Card;
 import solverz.business_card.domain.common.BaseTimeEntity;
+import solverz.business_card.domain.member.entity.Member;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +35,10 @@ public class ChatHistory extends BaseTimeEntity {
     @JoinColumn(name = "cardId", nullable = false)
     private Card card;
 
+    @ManyToOne
+    @JoinColumn(name = "memberToken", nullable = false)
+    private Member member ;
+
     @Builder
     public ChatHistory(String title, String content, LocalDateTime chatAt) {
         this.title = title;
@@ -43,6 +48,10 @@ public class ChatHistory extends BaseTimeEntity {
 
     public void updateCard(Card card) {
         this.card = card;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
     }
 
     public void updateTitle(String title) {

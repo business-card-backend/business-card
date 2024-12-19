@@ -17,6 +17,8 @@ import solverz.business_card.domain.chatHistory.response.*;
 import solverz.business_card.domain.common.execption.BusinessException;
 import solverz.business_card.domain.common.execption.ErrorCode;
 import solverz.business_card.domain.common.response.PageResponse;
+import solverz.business_card.domain.member.entity.Member;
+import solverz.business_card.domain.member.service.MemberService;
 
 import java.util.List;
 
@@ -25,11 +27,14 @@ import java.util.List;
 @Transactional
 public class ChatHistoryService {
     private final CardService cardService;
+    private final MemberService memberService;
     private final ChatHistoryRepository chatHistoryRepository;
 
     public PostChatHistoryResponse addChatHistory(PostChatHistoryRequest request) {
+        Member member = memberService.getOnlyMember(request.memberToken());
         Card card = cardService.getOnlyCard(request.cardId());
         ChatHistory chatHistory = PostChatHistoryRequest.toChatHistory(request);
+        chatHistory.updateMember(member);
         chatHistory.updateCard(card);
         chatHistoryRepository.save(chatHistory);
         return PostChatHistoryResponse.from(chatHistory);
@@ -41,15 +46,21 @@ public class ChatHistoryService {
         return PageResponse.of(chatHistories.stream().map(GetChatHistoryResponse::from).toList());
     }
 
-    public GetChatHistoryResponse getChatHistory(Long chatHistoryId) {
-        ChatHistory chatHistories = chatHistoryRepository.findById(chatHistoryId)
+    public GetChatHistoryResponse getChatHistory(Long chatHistoryId, String memberToken) {
+        ChatHistory chatHistory = chatHistoryRepository.findById(chatHistoryId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
-        return GetChatHistoryResponse.from(chatHistories);
+        if (!chatHistory.getMember().getMemberToken().equals(memberToken)) {
+            throw new BusinessException(ErrorCode.NOT_CHATHISTORY_OWNER);
+        }
+        return GetChatHistoryResponse.from(chatHistory);
     }
 
     public PutChatHistoryResponse modifyChatHistory(PutChatHistoryRequest request) {
         ChatHistory chatHistory = chatHistoryRepository.findById(request.chatHistoryId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+        if (!chatHistory.getMember().getMemberToken().equals(request.memberToken())) {
+            throw new BusinessException(ErrorCode.NOT_CHATHISTORY_OWNER);
+        }
         ChatHistory modifyChatHistory = PutChatHistoryRequest.toChatHistory(request);
         chatHistory.updateChatHistory(modifyChatHistory);
         return PutChatHistoryResponse.from(chatHistory);
@@ -58,19 +69,29 @@ public class ChatHistoryService {
     public DeleteChatHistoryResponse deleteChatHistory(DeleteChatHistoryRequest request) {
         ChatHistory chatHistory = chatHistoryRepository.findById(request.chatHistoryId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CHATHISTORY));
+        if (!chatHistory.getMember().getMemberToken().equals(request.memberToken())) {
+            throw new BusinessException(ErrorCode.NOT_CHATHISTORY_OWNER);
+        }
         chatHistoryRepository.deleteById(request.chatHistoryId());
         return DeleteChatHistoryResponse.from(chatHistory);
     }
 
     @Transactional
     public DeleteChatHistoriesResponse deleteChatHistories(DeleteChatHistoriesRequest request) {
-        List<ChatHistory> chatHistories = request.getChatHistoryIds().stream()
-                                                .map(id -> chatHistoryRepository.findById(id)
-                                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY)))
+        String ownerToken = request.memberToken();
+        List<ChatHistory> chatHistories = request.chatHistoryIds().stream()
+                                                .map(id -> {
+                                                    ChatHistory chatHistory = chatHistoryRepository.findById(id)
+                                                            .orElseThrow(() -> new BusinessException(ErrorCode.DELETION_FAILED_CHATHISTORY));
+                                                    if (!chatHistory.getMember().getMemberToken().equals(ownerToken)) {
+                                                        throw new BusinessException(ErrorCode.NOT_CHATHISTORY_OWNER);
+                                                    }
+                                                    return chatHistory;
+                                                })
                                                 .toList();
         List<DeleteChatHistoryResponse> deletedChatHistories;
 
-        request.getChatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
+        request.chatHistoryIds().forEach(id -> chatHistoryRepository.deleteById(id));
         deletedChatHistories = chatHistories.stream().map(DeleteChatHistoryResponse::from).toList();
         return DeleteChatHistoriesResponse.from(deletedChatHistories);
     }

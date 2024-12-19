@@ -13,17 +13,19 @@ public enum ErrorCode {
     // Member
     NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "NOT_FOUND_MEMBER", "해당 Token을 가진 멤버가 존재하지 않습니다."),
 
-    NOT_SOFT_DELETE_MEMBER(HttpStatus.NOT_FOUND, "NOT_FOUND_MEMBER", "탈퇴 요청이 들어온 멤버가 아닙니다."),
+    NOT_SOFT_DELETE_MEMBER(HttpStatus.NOT_FOUND, "NOT_SOFT_DELETE_MEMBER", "탈퇴 요청이 들어온 멤버가 아닙니다."),
 
     // Card
     NOT_FOUND_CARD(HttpStatus.NOT_FOUND, "NOT_FOUND_CARD", "해당 id을 가진 명함이 존재하지 않습니다."),
 
-    NOT_CARD_OWNER(HttpStatus.NOT_FOUND, "NOT_CARD_OWNER", "해당 멤버의 명함이 아닙니다."),
+    NOT_CARD_OWNER(HttpStatus.BAD_REQUEST, "NOT_CARD_OWNER", "해당 멤버의 명함이 아닙니다."),
 
     DELETION_FAILED_CARD(HttpStatus.NOT_FOUND, "DELETION_FAILED_CARD", "존재하지 않는 명함이 포함되어 있습니다."),
 
     // ChatHistory
     NOT_FOUND_CHATHISTORY(HttpStatus.NOT_FOUND, "NOT_FOUND_CHATHISTORY", "해당 id을 가진 상담기록이 존재하지 않습니다."),
+
+    NOT_CHATHISTORY_OWNER(HttpStatus.BAD_REQUEST, "NOT_CHATHISTORY_OWNER", "해당 멤버의 상담기록이 아닙니다."),
 
     DELETION_FAILED_CHATHISTORY(HttpStatus.NOT_FOUND, "DELETION_FAILED_CHATHISTORY", "존재하지 않는 상담기록이 포함되어 있습니다.");
 

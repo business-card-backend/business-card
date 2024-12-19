@@ -5,6 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "상담기록 삭제 요청")
 public record DeleteChatHistoryRequest(
         @Schema(description = "상담기록 아이디", defaultValue = "1")
-        Long chatHistoryId
+        Long chatHistoryId,
+
+        @Schema(description = "멤버 토큰", defaultValue = "1234")
+        String memberToken
 ) {
 }

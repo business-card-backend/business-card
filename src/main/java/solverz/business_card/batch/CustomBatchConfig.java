@@ -61,8 +61,8 @@ public class CustomBatchConfig {
     public Step deleteExpiredMembersStep(JpaTransactionManager jpaTransactionManager, MemberService memberService) throws Exception {
         return new StepBuilder("deleteExpiredMembersStep", customJobRepository(jpaTransactionManager))
                 .tasklet((contribution, chunkContext) -> { //deleteExpiredMembersTasklet
-                    //LocalDateTime cutoffDate = LocalDateTime.now().minusDays(30);
-                    LocalDateTime cutoffDate = LocalDateTime.now(); // 테스트용
+                    LocalDateTime cutoffDate = LocalDateTime.now().minusDays(30);
+                    //LocalDateTime cutoffDate = LocalDateTime.now(); // 테스트용
 
                     // 만료된 멤버 조회
                     List<Member> expiredMembers = memberService.findExpiredMembers(cutoffDate);

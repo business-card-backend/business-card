@@ -18,8 +18,8 @@ public class CustomBatchScheduler {
         this.deleteExpiredMembersJob = deleteExpiredMembersJob;
     }
 
-    @Scheduled(cron = "0 * * * * *") // 1분마다 실행 (테스트)
-    //@Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
+    //@Scheduled(cron = "0 * * * * *") // 1분마다 실행 (테스트)
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
     public void runDeleteExpiredMembersJob() throws Exception {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("time", LocalDateTime.now().toString()) // 고유한 파라미터 추가

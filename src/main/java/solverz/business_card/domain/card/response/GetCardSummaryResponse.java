@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
 
+import java.math.BigDecimal;
+
 @Builder
 @Schema(description = "명함 요약 정보 응답")
 public record GetCardSummaryResponse(
@@ -26,7 +28,13 @@ public record GetCardSummaryResponse(
         String companyAddress,
 
         @Schema(description = "고객 회사 번호")
-        String phoneNumber
+        String phoneNumber,
+
+        @Schema(description = "고객 회사 위도")
+        BigDecimal latitude,
+
+        @Schema(description = "고객 회사 경도")
+        BigDecimal longitude
 ) {
         public static GetCardSummaryResponse from(Card card) {
             return GetCardSummaryResponse.builder()
@@ -37,6 +45,8 @@ public record GetCardSummaryResponse(
                     .companyName(card.getCompanyName())
                     .companyAddress(card.getCompanyAddress())
                     .phoneNumber(card.getPhoneNumber())
+                    .latitude(card.getLatitude())
+                    .longitude(card.getLongitude())
                     .build();
         }
 }

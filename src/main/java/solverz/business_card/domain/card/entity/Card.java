@@ -46,10 +46,10 @@ public class Card extends BaseTimeEntity {
     @Column(name = "companyAddress")
     String companyAddress;
 
-    @Column(name = "latitude", precision = 9, scale = 6)
+    @Column(name = "latitude", precision = 18, scale = 15)
     BigDecimal latitude;
 
-    @Column(name = "longitude", precision = 9, scale = 6)
+    @Column(name = "longitude", precision = 18, scale = 15)
     BigDecimal longitude;
 
     @Column(name = "memo")

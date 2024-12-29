@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import solverz.business_card.domain.chatHistory.entity.ChatHistory;
 import solverz.business_card.domain.common.BaseTimeEntity;
+import solverz.business_card.domain.common.annotation.CheckEnumValid;
 import solverz.business_card.domain.member.entity.Member;
 
 import java.math.BigDecimal;
@@ -58,6 +59,10 @@ public class Card extends BaseTimeEntity {
     @Column(name = "position")
     String position;
 
+    @Column(name = "marker", nullable = false)
+    @Enumerated(EnumType.STRING)
+    MarkerType markerType;
+
     @ManyToOne
     @JoinColumn(name = "memberToken", nullable = false)
     private Member member;
@@ -66,7 +71,7 @@ public class Card extends BaseTimeEntity {
     private List<ChatHistory> chatHistories = new ArrayList<>();
 
     @Builder
-    public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo, String position) {
+    public Card(String name, String birth, String companyName, String email, String phoneNumber, String cardImgURL, String companyAddress, BigDecimal latitude, BigDecimal longitude, String memo, String position, MarkerType markerType) {
         this.name = name;
         this.birth = LocalDate.parse(birth);
         this.companyName = companyName;
@@ -78,6 +83,7 @@ public class Card extends BaseTimeEntity {
         this.longitude = longitude;
         this.memo = memo;
         this.position = position;
+        this.markerType = markerType;
     }
 
     public void updateMember(Member member) {
@@ -126,6 +132,10 @@ public class Card extends BaseTimeEntity {
 
     public void updatePosition(String position) { this.position = position; }
 
+    public void updateMarkerType(MarkerType markerType) {
+        this.markerType = markerType;
+    }
+
     public void updateCard(Card card) {
         this.updateName(card.getName());
         this.updateBirth(card.getBirth());
@@ -138,5 +148,6 @@ public class Card extends BaseTimeEntity {
         this.updateLongitude(card.getLongitude());
         this.updateMemo(card.getMemo());
         this.updatePosition(card.getPosition());
+        this.updateMarkerType(card.getMarkerType());
     }
 }

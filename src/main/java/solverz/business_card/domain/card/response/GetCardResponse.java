@@ -3,6 +3,7 @@ package solverz.business_card.domain.card.response;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import solverz.business_card.domain.card.entity.Card;
+import solverz.business_card.domain.card.entity.MarkerType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,8 +41,11 @@ public record GetCardResponse(
         @Schema(description = "명함 메모")
         String memo,
 
-        @Schema(description = "고객 직책", defaultValue = "과장")
-        String position
+        @Schema(description = "고객 직책")
+        String position,
+
+        @Schema(description = "마커타입")
+        MarkerType markerType
 ) {
         public static GetCardResponse from(Card card) {
             return GetCardResponse.builder()
@@ -57,6 +61,7 @@ public record GetCardResponse(
                     .longitude(card.getLongitude())
                     .memo(card.getMemo())
                     .position(card.getPosition())
+                    .markerType(card.getMarkerType())
                     .build();
         }
 }

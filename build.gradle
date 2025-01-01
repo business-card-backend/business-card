@@ -21,6 +21,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -36,7 +37,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation 'ch.qos.logback:logback-classic:1.4.1'
+	//implementation 'ch.qos.logback:logback-classic:1.4.1'
+	implementation 'ch.qos.logback:logback-classic:1.4.11'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	implementation 'org.slf4j:slf4j-api:2.0.3'
 
 	//Swagger
@@ -47,6 +50,9 @@ dependencies {
 
 	// Spring Batch
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+	// webhook
+	implementation 'com.github.napstr:logback-discord-appender:1.0.0'
 }
 
 tasks.named('test') {

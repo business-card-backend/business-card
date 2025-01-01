@@ -27,7 +27,9 @@ public enum ErrorCode {
 
     NOT_CHATHISTORY_OWNER(HttpStatus.BAD_REQUEST, "NOT_CHATHISTORY_OWNER", "해당 멤버의 상담기록이 아닙니다."),
 
-    DELETION_FAILED_CHATHISTORY(HttpStatus.NOT_FOUND, "DELETION_FAILED_CHATHISTORY", "존재하지 않는 상담기록이 포함되어 있습니다.");
+    DELETION_FAILED_CHATHISTORY(HttpStatus.NOT_FOUND, "DELETION_FAILED_CHATHISTORY", "존재하지 않는 상담기록이 포함되어 있습니다."),
+
+    INVALID_ENUM_VALUE(HttpStatus.BAD_REQUEST, "INVALID_ENUM_VALUE", "유효하지 않은 Enum 값입니다.");
 
     private final HttpStatus status;
     private final String code;

@@ -15,6 +15,7 @@ import solverz.business_card.domain.member.service.MemberService;
 @Tag(name = "User", description = "슈트 멤버 관련 API")
 @RestController
 @RequiredArgsConstructor
+@RestControllerAdvice
 @RequestMapping("/api/v1/member")
 public class MemberController {
     private final MemberService memberService;

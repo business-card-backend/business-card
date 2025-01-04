@@ -1,4 +1,4 @@
-package solverz.business_card.config;
+package solverz.business_card.global.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

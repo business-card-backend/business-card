@@ -1,4 +1,4 @@
-package solverz.business_card.batch;
+package solverz.business_card.global.batch;
 
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.batch.core.Job;

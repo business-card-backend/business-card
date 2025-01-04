@@ -1,4 +1,4 @@
-package solverz.business_card.config;
+package solverz.business_card.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -14,19 +14,14 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        
-    - name: Checkout Source Code with Submodules
-      uses: actions/checkout@v2
+    - name: Checkout Source Code with Submodules (JDK 17)
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         submodules: recursive
         fetch-depth: 0
+        java-version: '17'
+        distribution: 'temurin'
         
     - name: Move Submodule to src/main/resources
       run: |

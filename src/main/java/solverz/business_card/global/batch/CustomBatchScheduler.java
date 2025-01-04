@@ -1,4 +1,4 @@
-package solverz.business_card.batch;
+package solverz.business_card.global.batch;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.scheduling.annotation.Scheduled;

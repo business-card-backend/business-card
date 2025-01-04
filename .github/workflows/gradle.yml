@@ -20,7 +20,18 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
+        
+    - name: Checkout Source Code with Submodules
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        submodules: recursive
+        fetch-depth: 0
+        
+    - name: Move Submodule to src/main/resources
+      run: |
+        cp -r business-card-config/* src/main/resources/
+        
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle

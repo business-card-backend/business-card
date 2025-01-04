@@ -1,4 +1,4 @@
-package solverz.business_card.domain.common.logging;
+package solverz.business_card.global.logging;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

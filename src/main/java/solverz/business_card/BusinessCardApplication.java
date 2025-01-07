@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
+@EnableAspectJAutoProxy
 @EnableFeignClients
 public class BusinessCardApplication {
 

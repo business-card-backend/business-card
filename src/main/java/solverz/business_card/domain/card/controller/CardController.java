@@ -15,6 +15,7 @@ import solverz.business_card.domain.common.response.PageResponse;
 
 @Tag(name = "Card", description = "명함 관련 API")
 @RestController
+@RestControllerAdvice
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/card")
 public class CardController {

@@ -18,7 +18,6 @@ import solverz.business_card.domain.common.response.PageResponse;
 @Tag(name = "ChatHistory", description = "상담기록 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RestControllerAdvice
 @RequestMapping("/api/v1/chatHistory")
 public class ChatHistoryController {
     private final ChatHistoryService chatHistoryService;

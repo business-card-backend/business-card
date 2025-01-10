@@ -70,16 +70,3 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-task copyPrivate(type: Copy) {
-	// copy if only empty
-	onlyIf {
-		def targetDir = file('src/main/resources')
-		return targetDir.listFiles()?.length <= 1
-	}
-	copy {
-		from './business-card-config'
-		include "*"
-		into 'src/main/resources'
-	}
-}

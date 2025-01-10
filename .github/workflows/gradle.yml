@@ -37,4 +37,3 @@ jobs:
     - name: Build with Gradle Wrapper (with test profile)
       run: |
         ./gradlew clean bootjar -Pprofile=test
-        java -jar -Dspring.profiles.active=test build/libs/*.jar

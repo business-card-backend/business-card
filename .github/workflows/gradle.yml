@@ -35,4 +35,5 @@ jobs:
       uses: gradle/actions/setup-gradle@v4.0.0
 
     - name: Build with Gradle Wrapper (with test profile)
-      run: ./gradlew --no-daemon clean build -Dspring.profiles.active=test --info
+      run: |
+        ./gradlew clean bootjar -Pprofile=test

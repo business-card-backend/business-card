@@ -11,7 +11,7 @@
 
 > 📆 개발기간: 2024.10.13 ~
  
-> 🛠️ 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions
+> 🛠️ 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions 
 
 > 🔗 배포: [IOS](https://apps.apple.com/us/app/suit-%EB%AA%85%ED%95%A8-%EC%9D%BC%EC%A0%95-%EA%B3%A0%EA%B0%9D-%EC%98%81%EC%97%85-%EA%B4%80%EB%A6%AC/id6739991853?l=ko), [Android](https://play.google.com/store/apps/details?id=com.ewoolab.suit&pcampaignid=web_share)
 

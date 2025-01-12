@@ -1,15 +1,22 @@
-# 명함 프로젝트 백엔드 레포지토리
+# Project Backend Repository
 
-## 1. SUIT (수트)
+<br>
+<p align="center"> <img width="150" alt="image" src="https://github.com/user-attachments/assets/9b8b557b-867d-4cd1-9ec3-52ca21469dcc" /> </p>
+<h1 align="center">SUIT (수트)</h1>
+<br>
+<br>
 
+## 개요
 > 목표: 비즈니스 인맥 관리를 더 스마트하고 효율적으로 만들어주는 명함 관리 서비스
- 
+
 > 개발기간: 2024.10.13 ~
  
-
 > 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions 
 
-## 2. 멤버
+<br>
+<br>
+
+## 멤버
 
 <table>
   <tr>
@@ -22,11 +29,17 @@
   </tr>
 </table>
 
-## 3. 프로젝트 구조
+<br>
+<br>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/fd94183e-fb74-4f82-b811-6acd7ac70cf2/20ebf793-67f6-404f-a5f0-748cbcbcd359/image.png)
+## 프로젝트 구조
 
-## 4. 주요 기능
+<img width="899" alt="image" src="https://github.com/user-attachments/assets/45fe8ee7-694e-4a71-92bd-a86f69d70d89" />
+
+<br>
+<br>
+
+## 주요 기능
 
 - 명함 스캔 및 자동 정보 추출
 - AI 기술을 활용한 정확한 명함 정보 인식
@@ -45,6 +58,9 @@
 - 전화, 문자 바로 연결
 - 주소 정보 기반 길찾기 지원
 
-## 5. 화면 구성
+<br>
+<br>
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/fd94183e-fb74-4f82-b811-6acd7ac70cf2/c9cc85a7-1d0c-4f6f-aced-e77976eafd3b/image.png)
+## 화면 구성
+
+<img width="1049" alt="image" src="https://github.com/user-attachments/assets/e40e2dba-94a2-4022-acdc-750c1ca565ea" />

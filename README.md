@@ -21,24 +21,46 @@
 <br>
 
 ## 멤버
-
-<table>
-  <tr>
-    <td height="140px" align="center"> <a href="https://github.com/1006lem"><img src="https://avatars.githubusercontent.com/u/68532437?v=4" width="140px" /><br/></a></td>
-    <td height="140px" align="center"> <a href="https://github.com/csb0710"><img src="https://avatars.githubusercontent.com/u/56204009?v=4" width="140px" /><br/></a></td>
-  </tr>
-  <tr>
-    <td align="center"> 👩🏻‍💻 김규민 (백엔드)</td>
-    <td align="center"> 👨🏻‍💻 차승빈 (백엔드)</td>
-  </tr>
+<table align="center">
+   <tr>
+     <td align="center">
+       <a href="https://github.com/1006lem">
+         <img src="https://avatars.githubusercontent.com/u/68532437?v=4" width="140px" /><br/>
+       </a>
+     </td>
+     <td align="center">
+       <strong>김규민</strong><br/>
+     </td>
+     <td>
+      - AWS를 통한 프로젝트 인프라 환경 구축 <br>
+      - Docker 및 Github Actions를 활용한 CI/CD 파이프라인 구축 <br>
+      - 사용자 계정 관련 기능 구현 <br>
+      - 개발 편의성 향상을 위한 로그 모니터링 기능 구현
+     </td>
+   </tr>
+   <tr>
+     <td align="center">
+       <a href="https://github.com/csb0710">
+         <img src="https://avatars.githubusercontent.com/u/56204009?v=4" width="140px" /><br/>
+       </a>
+     </td>
+     <td align="center">
+       <strong>차승빈</strong><br/>
+     </td>
+     <td>
+      - 명함 관련 기능 구현 <br>
+      - 상담 기록 관련 기능 구현 <br>
+     </td>
+   </tr>
 </table>
+
 
 <br>
 <br>
 
 ## 프로젝트 구조
 
-<img width="899" alt="image" src="https://github.com/user-attachments/assets/45fe8ee7-694e-4a71-92bd-a86f69d70d89" />
+<p align="center"> <img width="899" alt="image" src="https://github.com/user-attachments/assets/45fe8ee7-694e-4a71-92bd-a86f69d70d89" /> </p>
 
 <br>
 <br>
@@ -67,4 +89,4 @@
 
 ## 화면 구성
 
-<img width="1049" alt="image" src="https://github.com/user-attachments/assets/e40e2dba-94a2-4022-acdc-750c1ca565ea" />
+<p align="center"> <img width="1000" alt="image" src="https://github.com/user-attachments/assets/e40e2dba-94a2-4022-acdc-750c1ca565ea" /> </p>

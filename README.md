@@ -1,8 +1,8 @@
 # Project Backend Repository
 
 <br>
-<p align="center"> <img width="150" alt="image" src="https://github.com/user-attachments/assets/9b8b557b-867d-4cd1-9ec3-52ca21469dcc" /> </p>
-<h1 align="center">SUIT (수트)</h1>
+<p align="center"> <img width="100" alt="image" src="https://github.com/user-attachments/assets/9b8b557b-867d-4cd1-9ec3-52ca21469dcc" /> </p>
+<h3 align="center">SUIT (수트)</h1>
 <br>
 <br>
 
@@ -11,7 +11,11 @@
 
 > 개발기간: 2024.10.13 ~
  
-> 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions 
+> 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions
+
+> 배포: [IOS](https://apps.apple.com/us/app/suit-%EB%AA%85%ED%95%A8-%EC%9D%BC%EC%A0%95-%EA%B3%A0%EA%B0%9D-%EC%98%81%EC%97%85-%EA%B4%80%EB%A6%AC/id6739991853?l=ko), [Android](https://play.google.com/store/apps/details?id=com.ewoolab.suit&pcampaignid=web_share)
+
+> 
 
 <br>
 <br>

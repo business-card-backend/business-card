@@ -60,7 +60,7 @@
 
 ## 📌 프로젝트 구조
 
-<p align="center"> <img width="899" alt="image" src="https://github.com/user-attachments/assets/45fe8ee7-694e-4a71-92bd-a86f69d70d89" /> </p>
+<p align="center"> <img width="899" alt="image" src="https://github.com/user-attachments/assets/1a6e9403-f485-4165-a7f5-cd986cc79189" /> </p>
 
 <br>
 <br>

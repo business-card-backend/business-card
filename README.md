@@ -6,21 +6,21 @@
 <br>
 <br>
 
-## 개요
-> 목표: 비즈니스 인맥 관리를 더 스마트하고 효율적으로 만들어주는 명함 관리 서비스
+## 📌 개요
+> 🏆 목표: 비즈니스 인맥 관리를 더 스마트하고 효율적으로 만들어주는 명함 관리 서비스
 
-> 개발기간: 2024.10.13 ~
+> 📆 개발기간: 2024.10.13 ~
  
-> 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions
+> 🛠️ 기술 스택: ✅ Flutter, ✅ SpringBoot, ✅ MySQL, ✅ Docker, ✅ Git, Github, ✅ Github Actions
 
-> 배포: [IOS](https://apps.apple.com/us/app/suit-%EB%AA%85%ED%95%A8-%EC%9D%BC%EC%A0%95-%EA%B3%A0%EA%B0%9D-%EC%98%81%EC%97%85-%EA%B4%80%EB%A6%AC/id6739991853?l=ko), [Android](https://play.google.com/store/apps/details?id=com.ewoolab.suit&pcampaignid=web_share)
+> 🔗 배포: [IOS](https://apps.apple.com/us/app/suit-%EB%AA%85%ED%95%A8-%EC%9D%BC%EC%A0%95-%EA%B3%A0%EA%B0%9D-%EC%98%81%EC%97%85-%EA%B4%80%EB%A6%AC/id6739991853?l=ko), [Android](https://play.google.com/store/apps/details?id=com.ewoolab.suit&pcampaignid=web_share)
 
 > 
 
 <br>
 <br>
 
-## 멤버
+## 📌 멤버
 <table align="center">
    <tr>
      <td align="center">
@@ -58,14 +58,14 @@
 <br>
 <br>
 
-## 프로젝트 구조
+## 📌 프로젝트 구조
 
 <p align="center"> <img width="899" alt="image" src="https://github.com/user-attachments/assets/45fe8ee7-694e-4a71-92bd-a86f69d70d89" /> </p>
 
 <br>
 <br>
 
-## 주요 기능
+## 📌 주요 기능
 
 - 명함 스캔 및 자동 정보 추출
 - AI 기술을 활용한 정확한 명함 정보 인식
@@ -87,6 +87,6 @@
 <br>
 <br>
 
-## 화면 구성
+## 📌 화면 구성
 
 <p align="center"> <img width="1000" alt="image" src="https://github.com/user-attachments/assets/e40e2dba-94a2-4022-acdc-750c1ca565ea" /> </p>

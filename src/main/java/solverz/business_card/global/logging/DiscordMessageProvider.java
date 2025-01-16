@@ -19,7 +19,7 @@ public class DiscordMessageProvider {
     }
 
     private void sendMessageToDiscord(DiscordMessage discordMessage) {
-        if (!Arrays.asList(environment.getActiveProfiles()).contains("local")) {
+        if (Arrays.asList(environment.getActiveProfiles()).contains("dev")) {
             discordFeignClient.sendMessage(discordMessage);
         }
     }

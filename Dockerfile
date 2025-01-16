@@ -15,4 +15,4 @@ COPY --from=builder build/libs/*.jar app.jar
 EXPOSE 8080
 
 # 애플리케이션 실행
-ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true", "-jar", "/app.jar", "--spring.profiles.active=dev"]
+ENTRYPOINT ["java", "-jar", "/app.jar", "--spring.profiles.active=dev"]
